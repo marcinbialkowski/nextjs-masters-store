@@ -1,6 +1,6 @@
 import { ProductList } from '@/components/organisms/product-list';
 import { products } from '@/data';
 
-const Home = () => <ProductList products={products} />;
+const HomePage = () => <ProductList products={products} />;
 
-export default Home;
+export default HomePage;
