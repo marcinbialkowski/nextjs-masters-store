@@ -1,6 +1,6 @@
 const TermsAndConditionsPage = () => (
   <>
-    <h1 className="mb-8 text-center text-5xl">Regulamin</h1>
+    <h1 className="mb-8 text-center text-5xl">Terms and conditions</h1>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed
       porta ligula, et consectetur metus. Nulla eget mauris est. Ut imperdiet

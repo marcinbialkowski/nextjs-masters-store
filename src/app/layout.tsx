@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
-import { MainContainer } from '@/components/atoms/main-container';
+import { Main } from '../components/atoms/main';
 import { Footer } from '@/components/organisms/footer';
 import { Header } from '@/components/organisms/header';
+import { PageContainer } from '@/components/atoms/page-container';
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -15,11 +16,13 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: RootLayoutProps) => (
-  <html lang="pl">
-    <body className="flex min-h-screen flex-col bg-gray-100 text-gray-950">
-      <Header />
-      <MainContainer>{children}</MainContainer>
-      <Footer />
+  <html lang="en">
+    <body className="bg-slate-100 text-slate-900">
+      <PageContainer>
+        <Header />
+        <Main>{children}</Main>
+        <Footer />
+      </PageContainer>
     </body>
   </html>
 );

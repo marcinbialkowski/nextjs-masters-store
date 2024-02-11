@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react';
+import type { Route } from 'next';
 import Link from 'next/link';
 
-interface FooterLinkProps {
-  href: string;
+interface FooterLinkProps<RouteInferType extends string> {
   children: ReactNode;
+  href: Route<RouteInferType>;
 }
 
-export const FooterLink = (props: FooterLinkProps) => (
-  <Link {...props} className="hover:underline" />
-);
+export const FooterLink = <RouteInferType extends string>(
+  props: FooterLinkProps<RouteInferType>,
+) => <Link {...props} className="hover:underline" />;

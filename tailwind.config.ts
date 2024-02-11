@@ -6,6 +6,12 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   plugins: [],
+  theme: {
+    container: {
+      center: true,
+      padding: '0.75rem',
+    },
+  },
 };
 
 export default config;

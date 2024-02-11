@@ -1,6 +1,3 @@
-import { ProductList } from '@/components/organisms/product-list';
-import { products } from '@/data';
-
-const HomePage = () => <ProductList products={products} />;
+const HomePage = () => <h1>Home</h1>;
 
 export default HomePage;
