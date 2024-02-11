@@ -1,14 +1,14 @@
+import type { Product } from '@/types';
+
 interface ProductImageProps {
-  alt: string;
-  src: string;
+  product: Product;
 }
 
-export const ProductImage = ({ alt, src }: ProductImageProps) => (
+export const ProductImage = ({ product }: ProductImageProps) => (
   <img
-    alt={alt}
-    src={src}
+    {...product.image}
     className="aspect-square w-full rounded-t-lg object-cover object-center"
-    width={400}
-    height={400}
+    width={285}
+    height={285}
   />
 );

@@ -7,7 +7,7 @@ interface ProductListProps {
 
 export const ProductList = ({ products }: ProductListProps) => (
   <ul
-    className="grid w-full grid-cols-2 gap-4 md:grid-cols-4"
+    className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
     data-testid="products-list"
   >
     {products.map((product) => (
