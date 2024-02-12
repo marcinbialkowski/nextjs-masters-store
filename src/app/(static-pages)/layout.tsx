@@ -5,7 +5,9 @@ interface StaticLayoutProps {
 }
 
 const StaticLayout = ({ children }: StaticLayoutProps) => (
-  <div className="flex max-w-[65ch] flex-col gap-4 text-lg">{children}</div>
+  <div className="mx-auto flex max-w-[65ch] flex-col gap-4 text-lg">
+    {children}
+  </div>
 );
 
 export default StaticLayout;

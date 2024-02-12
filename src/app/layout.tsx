@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="en">
-    <body className="bg-slate-100 text-slate-900">
+    <body className="text-slate-900">
       <PageContainer>
         <Header />
         <Main>{children}</Main>

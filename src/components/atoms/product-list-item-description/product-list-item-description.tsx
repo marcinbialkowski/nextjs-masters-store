@@ -2,11 +2,13 @@ import Link from 'next/link';
 import type { Product } from '@/types';
 import { formatMoney } from '@/utils/format-money';
 
-interface ProductDescriptionProps {
+interface ProductListItemDescriptionProps {
   product: Product;
 }
 
-export const ProductDescription = ({ product }: ProductDescriptionProps) => (
+export const ProductListItemDescription = ({
+  product,
+}: ProductListItemDescriptionProps) => (
   <div className="flex flex-col justify-between gap-1 px-3 pb-3 pt-2">
     <Link
       className="line-clamp-2 h-[2lh] font-bold hover:underline"

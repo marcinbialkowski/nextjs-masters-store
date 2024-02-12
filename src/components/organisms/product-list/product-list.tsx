@@ -1,19 +1,17 @@
-import { Product } from '@/components/molecules/product';
-import type { Product as ProductType } from '@/types';
+import { ProductListItem } from '@/components/molecules/product-list-item';
+import type { Product } from '@/types';
 
 interface ProductListProps {
-  products: ProductType[];
+  products: Product[];
 }
 
 export const ProductList = ({ products }: ProductListProps) => (
   <ul
-    className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+    className="grid w-full grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4"
     data-testid="products-list"
   >
     {products.map((product) => (
-      <li key={product.id}>
-        <Product product={product} />
-      </li>
+      <ProductListItem key={product.id} product={product} />
     ))}
   </ul>
 );

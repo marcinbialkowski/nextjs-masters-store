@@ -1,13 +1,18 @@
+import clsx from 'clsx';
 import type { Product } from '@/types';
 
 interface ProductImageProps {
+  className?: string;
   product: Product;
 }
 
-export const ProductImage = ({ product }: ProductImageProps) => (
+export const ProductImage = ({ className, product }: ProductImageProps) => (
   <img
     {...product.image}
-    className="aspect-square w-full rounded-t-lg object-cover object-center"
+    className={clsx(
+      className,
+      'aspect-square w-full object-cover object-center',
+    )}
     width={285}
     height={285}
   />
