@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import { ProductPrice } from '@/components/atoms/product-price';
 import type { Product } from '@/types';
-import { formatMoney } from '@/utils/format-money';
 
 interface ProductListItemDescriptionProps {
   product: Product;
@@ -16,8 +16,6 @@ export const ProductListItemDescription = ({
     >
       <h3>{product.name}</h3>
     </Link>
-    <p>
-      <span className="sr-only">Price:</span> {formatMoney(product.price)}
-    </p>
+    <ProductPrice product={product} />
   </div>
 );

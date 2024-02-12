@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Route } from 'next';
-import Link from 'next/link';
+import { ActiveLink } from '@/components/atoms/active-link';
 
 interface FooterLinkProps<RouteInferType extends string> {
   children: ReactNode;
@@ -9,4 +9,4 @@ interface FooterLinkProps<RouteInferType extends string> {
 
 export const FooterLink = <RouteInferType extends string>(
   props: FooterLinkProps<RouteInferType>,
-) => <Link {...props} className="hover:underline" />;
+) => <ActiveLink {...props} className="hover:underline" />;

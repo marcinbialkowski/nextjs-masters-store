@@ -1,6 +1,6 @@
 import { ProductImage } from '@/components/atoms/product-image';
+import { ProductPrice } from '@/components/atoms/product-price';
 import { getProduct } from '@/services/products';
-import { formatMoney } from '@/utils/format-money';
 
 interface ProductPageProps {
   params: { productId: string };
@@ -17,9 +17,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
       <div>
         <h1 className="mb-4 text-4xl">{product.name}</h1>
         <p className="mb-6">{product.description}</p>
-        <p className="text-2xl">
-          <span className="sr-only">Price:</span> {formatMoney(product.price)}
-        </p>
+        <ProductPrice className="text-2xl" product={product} />
       </div>
     </div>
   );

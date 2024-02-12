@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
-import { Main } from '../components/atoms/main';
+import { Main } from '@/components/atoms/main';
 import { Footer } from '@/components/organisms/footer';
 import { Header } from '@/components/organisms/header';
 import { PageContainer } from '@/components/atoms/page-container';
