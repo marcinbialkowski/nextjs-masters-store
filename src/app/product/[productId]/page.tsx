@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { ProductImage } from '@/components/atoms/product-image';
 import { ProductPrice } from '@/components/atoms/product-price';
 import { getProduct } from '@/services/products';
@@ -5,6 +6,23 @@ import { getProduct } from '@/services/products';
 interface ProductPageProps {
   params: { productId: string };
 }
+
+export const generateMetadata = async ({
+  params,
+}: ProductPageProps): Promise<Metadata> => {
+  const { description, name, image } = await getProduct(params.productId);
+  const title = `${name} - NextStore`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [image.src],
+    },
+  };
+};
 
 const ProductPage = async ({ params }: ProductPageProps) => {
   const product = await getProduct(params.productId);

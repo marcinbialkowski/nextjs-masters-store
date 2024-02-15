@@ -8,7 +8,8 @@ interface ProductImageProps {
 
 export const ProductImage = ({ className, product }: ProductImageProps) => (
   <img
-    {...product.image}
+    alt={product.image.alt}
+    src={product.image.src}
     className={clsx(
       className,
       'aspect-square w-full object-cover object-center',

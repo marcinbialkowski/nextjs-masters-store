@@ -13,7 +13,7 @@ export const NavbarItem = <RouteInferType extends string>(
     <ActiveLink
       {...props}
       activeClassName="font-bold"
-      className="text-sm text-slate-600 hover:underline"
+      className="text-sm text-gray-600 hover:underline"
     />
   </li>
 );

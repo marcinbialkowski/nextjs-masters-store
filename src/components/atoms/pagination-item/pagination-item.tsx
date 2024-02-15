@@ -13,11 +13,11 @@ export const PaginationItem = <RouteInferType extends string>({
 }: PaginationLinkProps<RouteInferType>) => (
   <ActiveLink
     {...props}
-    activeClassName="font-bold bg-slate-200"
+    activeClassName="font-bold bg-gray-200"
     className={clsx(
       className,
       'grid h-11 min-w-11 place-items-center rounded hover:underline',
     )}
-    inactiveClassName="hover:bg-slate-50"
+    inactiveClassName="hover:bg-gray-100"
   />
 );
