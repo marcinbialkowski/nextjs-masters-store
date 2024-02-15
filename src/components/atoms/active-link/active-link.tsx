@@ -12,6 +12,7 @@ interface ActiveLinkProps<RouteInferType extends string> {
   className?: string;
   exact?: boolean;
   href: Route<RouteInferType>;
+  inactiveClassName?: string;
 }
 
 export const ActiveLink = <RouteInferType extends string>({
@@ -20,12 +21,17 @@ export const ActiveLink = <RouteInferType extends string>({
   className,
   exact = false,
   href,
+  inactiveClassName,
 }: ActiveLinkProps<RouteInferType>) => {
   const isActive = useIsActive(href, exact);
 
   return (
     <Link
-      className={clsx(className, isActive && activeClassName)}
+      className={clsx(
+        className,
+        isActive && activeClassName,
+        !isActive && inactiveClassName,
+      )}
       href={href}
       aria-current={isActive ? 'page' : undefined}
     >

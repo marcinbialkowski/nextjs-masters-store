@@ -1,3 +1,5 @@
+import type { Product } from '@/types';
+
 export interface ProductResponse {
   id: string;
   title: string;
@@ -10,4 +12,14 @@ export interface ProductResponse {
   };
   image: string;
   longDescription: string;
+}
+
+export interface GetProductsOptions {
+  page?: number;
+  pageSize: number;
+}
+
+export interface GetProductsResult {
+  products: Product[];
+  pagesCount: number;
 }

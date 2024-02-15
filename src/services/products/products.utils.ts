@@ -1,5 +1,5 @@
-import { type ProductResponse } from './products.types';
-import { type Product } from '@/types';
+import type { ProductResponse } from './products.types';
+import type { Product } from '@/types';
 
 export const toProduct = ({
   description,
