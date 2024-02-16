@@ -1,15 +1,19 @@
 import type { ComponentProps } from 'react';
 import { ActiveLink } from '@/components/atoms/active-link';
 
-type NavLinkProps<RouteInferType extends string> = Pick<
-  ComponentProps<typeof ActiveLink<RouteInferType>>,
-  'children' | 'href'
->;
+interface NavLinkProps<RouteInferType extends string>
+  extends Pick<
+    ComponentProps<typeof ActiveLink<RouteInferType>>,
+    'children' | 'href'
+  > {
+  className?: string;
+}
 
-export const NavbarItem = <RouteInferType extends string>(
-  props: NavLinkProps<RouteInferType>,
-) => (
-  <li>
+export const NavbarItem = <RouteInferType extends string>({
+  className,
+  ...props
+}: NavLinkProps<RouteInferType>) => (
+  <li className={className}>
     <ActiveLink
       {...props}
       activeClassName="font-bold"

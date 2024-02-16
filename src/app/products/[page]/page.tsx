@@ -12,7 +12,7 @@ const pageSize = 20;
 
 export const generateStaticParams = async () => {
   const { pagesCount } = await getProducts({ pageSize });
-  return Array.from({ length: pagesCount }, (_v, index) => ({
+  return Array.from({ length: Math.min(pagesCount, 5) }, (_v, index) => ({
     page: `${index + 1}`,
   }));
 };
