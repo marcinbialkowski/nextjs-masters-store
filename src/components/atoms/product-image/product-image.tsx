@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { Product } from '@/graphql/client';
+import { type Product } from '@/graphql/client';
 
 interface ProductImageProps {
   className?: string;

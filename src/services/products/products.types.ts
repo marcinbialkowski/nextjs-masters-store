@@ -1,18 +1,4 @@
-import type { Product } from '@/graphql/client';
-
-export interface ProductResponse {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-  image: string;
-  longDescription: string;
-}
+import { type Product } from '@/graphql/client';
 
 export interface GetProductsOptions {
   page?: number;

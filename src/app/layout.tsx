@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import type { Metadata } from 'next';
+import { type ReactNode } from 'react';
+import { type Metadata } from 'next';
 import './globals.css';
 import { Main } from '@/components/atoms/main';
 import { Footer } from '@/components/organisms/footer';

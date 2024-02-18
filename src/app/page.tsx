@@ -9,7 +9,9 @@ const HomePage = async () => {
   return (
     <>
       <h1 className="sr-only">Home</h1>
-      <ProductList products={products} />
+      <div data-testid="related-products">
+        <ProductList products={products} />
+      </div>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ProductImage } from '@/components/atoms/product-image';
 import { ProductPrice } from '@/components/atoms/product-price';

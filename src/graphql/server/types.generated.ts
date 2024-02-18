@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { ApolloContext } from './types.js';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -209,7 +210,7 @@ export type ResolversParentTypes = {
 };
 
 export type ImageResolvers<
-  ContextType = any,
+  ContextType = ApolloContext,
   ParentType extends
     ResolversParentTypes['Image'] = ResolversParentTypes['Image'],
 > = {
@@ -222,7 +223,7 @@ export type ImageResolvers<
 };
 
 export type ListMetaResolvers<
-  ContextType = any,
+  ContextType = ApolloContext,
   ParentType extends
     ResolversParentTypes['ListMeta'] = ResolversParentTypes['ListMeta'],
 > = {
@@ -232,7 +233,7 @@ export type ListMetaResolvers<
 };
 
 export type ProductResolvers<
-  ContextType = any,
+  ContextType = ApolloContext,
   ParentType extends
     ResolversParentTypes['Product'] = ResolversParentTypes['Product'],
 > = {
@@ -246,7 +247,7 @@ export type ProductResolvers<
 };
 
 export type ProductListResolvers<
-  ContextType = any,
+  ContextType = ApolloContext,
   ParentType extends
     ResolversParentTypes['ProductList'] = ResolversParentTypes['ProductList'],
 > = {
@@ -256,7 +257,7 @@ export type ProductListResolvers<
 };
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = ApolloContext,
   ParentType extends
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
@@ -274,7 +275,7 @@ export type QueryResolvers<
   >;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = ApolloContext> = {
   Image?: ImageResolvers<ContextType>;
   ListMeta?: ListMetaResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;

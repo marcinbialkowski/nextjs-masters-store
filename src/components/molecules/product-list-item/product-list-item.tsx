@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ProductImage } from '@/components/atoms/product-image';
 import { ProductListItemDescription } from '@/components/atoms/product-list-item-description';
-import type { Product } from '@/graphql/client';
+import { type Product } from '@/graphql/client';
 
 interface ProductListItemProps {
   product: Product;

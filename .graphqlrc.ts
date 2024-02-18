@@ -1,4 +1,4 @@
-import type { CodegenConfig } from '@graphql-codegen/cli';
+import { type CodegenConfig } from '@graphql-codegen/cli';
 import { defineConfig } from '@eddeee888/gcg-typescript-resolver-files';
 
 const config = {
@@ -10,6 +10,7 @@ const config = {
     'src/graphql/server/': defineConfig({
       typesPluginsConfig: {
         optionalInfoArgument: true,
+        contextType: './types.js#ApolloContext',
       },
       scalarsOverrides: {
         ID: {

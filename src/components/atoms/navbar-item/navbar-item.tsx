@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import { type ComponentProps } from 'react';
 import { ActiveLink } from '@/components/atoms/active-link';
 
 interface NavLinkProps<RouteInferType extends string>

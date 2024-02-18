@@ -20,6 +20,9 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
+  graphql:
+    specifier: ^16.8.1
+    version: 16.8.1
   graphql-scalars:
     specifier: ^1.22.4
     version: 1.22.4(graphql@16.8.1)
@@ -97,9 +100,6 @@ devDependencies:
   eslint-plugin-import:
     specifier: ^2.29.1
     version: 2.29.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
-  graphql:
-    specifier: ^16.8.1
-    version: 16.8.1
   husky:
     specifier: ^9.0.10
     version: 9.0.10

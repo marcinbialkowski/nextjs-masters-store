@@ -1,6 +1,6 @@
 import { NoProducts } from '@/components/atoms/no-products';
 import { ProductListItem } from '@/components/molecules/product-list-item';
-import type { Product } from '@/graphql/client';
+import { type Product } from '@/graphql/client';
 
 interface ProductListProps {
   products: Product[];

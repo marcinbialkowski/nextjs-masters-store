@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { ComponentProps } from 'react';
+import { type ComponentProps } from 'react';
 import { ActiveLink } from '@/components/atoms/active-link';
 
 type PaginationLinkProps<RouteInferType extends string> = Pick<

@@ -1,4 +1,7 @@
-import type { GetProductsOptions, GetProductsResult } from './products.types';
+import {
+  type GetProductsOptions,
+  type GetProductsResult,
+} from './products.types';
 import {
   executeGraphql,
   ProductGetBySlugDocument,

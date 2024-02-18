@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ProductPrice } from '@/components/atoms/product-price';
-import type { Product } from '@/graphql/client';
+import { type Product } from '@/graphql/client';
 
 interface ProductListItemDescriptionProps {
   product: Product;
