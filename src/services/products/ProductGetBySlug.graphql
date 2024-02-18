@@ -1,0 +1,16 @@
+query ProductGetBySlug($slug: String!) {
+  product(slug: $slug) {
+    id
+    slug
+    name
+    description
+    price
+    images {
+      id
+      url
+      alt
+      width
+      height
+    }
+  }
+}

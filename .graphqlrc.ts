@@ -17,7 +17,7 @@ const config = {
         },
       },
     }),
-    'src/graphql/client/': {
+    'src/graphql/client/generated/': {
       preset: 'client',
       presetConfig: {
         fragmentMasking: false,

@@ -8,7 +8,7 @@ interface ProductsPageProps {
   params: { page: string };
 }
 
-const pageSize = 20;
+const pageSize = 4;
 
 export const generateStaticParams = async () => {
   const { pagesCount } = await getProducts({ pageSize });

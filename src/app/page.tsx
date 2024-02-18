@@ -3,7 +3,6 @@ import { ProductList } from '@/components/organisms/product-list';
 
 const HomePage = async () => {
   const { products } = await getProducts({
-    page: 1,
     pageSize: 4,
   });
 

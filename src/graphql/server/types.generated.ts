@@ -31,23 +31,50 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
+export type Image = {
+  __typename?: 'Image';
+  alt: Scalars['String']['output'];
+  height: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  url: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
+};
+
+export type ListMeta = {
+  __typename?: 'ListMeta';
+  count: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
 export type Product = {
   __typename?: 'Product';
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  images: Array<Image>;
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
   slug: Scalars['String']['output'];
 };
 
+export type ProductList = {
+  __typename?: 'ProductList';
+  data: Array<Product>;
+  meta: ListMeta;
+};
+
 export type Query = {
   __typename?: 'Query';
   product?: Maybe<Product>;
-  products: Array<Product>;
+  products: ProductList;
 };
 
 export type QueryproductArgs = {
-  id: Scalars['ID']['input'];
+  slug: Scalars['String']['input'];
+};
+
+export type QueryproductsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -157,22 +184,51 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Product: ResolverTypeWrapper<Product>;
+  Image: ResolverTypeWrapper<Image>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  ListMeta: ResolverTypeWrapper<ListMeta>;
+  Product: ResolverTypeWrapper<Product>;
+  ProductList: ResolverTypeWrapper<ProductList>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Product: Product;
+  Image: Image;
   String: Scalars['String']['output'];
-  ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
+  ID: Scalars['ID']['output'];
+  ListMeta: ListMeta;
+  Product: Product;
+  ProductList: ProductList;
   Query: {};
   Boolean: Scalars['Boolean']['output'];
+};
+
+export type ImageResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Image'] = ResolversParentTypes['Image'],
+> = {
+  alt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ListMetaResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['ListMeta'] = ResolversParentTypes['ListMeta'],
+> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductResolvers<
@@ -182,9 +238,20 @@ export type ProductResolvers<
 > = {
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductListResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['ProductList'] = ResolversParentTypes['ProductList'],
+> = {
+  data?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
+  meta?: Resolver<ResolversTypes['ListMeta'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -197,16 +264,20 @@ export type QueryResolvers<
     Maybe<ResolversTypes['Product']>,
     ParentType,
     ContextType,
-    RequireFields<QueryproductArgs, 'id'>
+    RequireFields<QueryproductArgs, 'slug'>
   >;
   products?: Resolver<
-    Array<ResolversTypes['Product']>,
+    ResolversTypes['ProductList'],
     ParentType,
-    ContextType
+    ContextType,
+    Partial<QueryproductsArgs>
   >;
 };
 
 export type Resolvers<ContextType = any> = {
+  Image?: ImageResolvers<ContextType>;
+  ListMeta?: ListMetaResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
+  ProductList?: ProductListResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

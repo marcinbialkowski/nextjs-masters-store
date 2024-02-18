@@ -1,20 +1,20 @@
 import clsx from 'clsx';
-import type { Product } from '@/types';
+import type { Product } from '@/graphql/client';
 
 interface ProductImageProps {
   className?: string;
-  product: Product;
+  image: Product['images'][number];
 }
 
-export const ProductImage = ({ className, product }: ProductImageProps) => (
+export const ProductImage = ({ className, image }: ProductImageProps) => (
   <img
-    alt={product.image.alt}
-    src={product.image.src}
+    alt={image.alt}
+    src={image.url}
     className={clsx(
       className,
       'aspect-square w-full object-cover object-center',
     )}
-    width={285}
-    height={285}
+    width={image.width}
+    height={image.height}
   />
 );

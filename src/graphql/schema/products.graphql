@@ -1,6 +1,6 @@
 extend type Query {
-  product(id: ID!): Product
-  products: [Product!]!
+  product(slug: String!): Product
+  products(first: Int, skip: Int): ProductList!
 }
 
 type Product {
@@ -9,4 +9,10 @@ type Product {
   slug: String!
   description: String!
   price: Int!
+  images: [Image!]!
+}
+
+type ProductList {
+  data: [Product!]!
+  meta: ListMeta!
 }

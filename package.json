@@ -12,10 +12,13 @@
     "format:check": "prettier . --check",
     "prepare": "husky",
     "codegen": "graphql-codegen --config .graphqlrc.ts",
-    "postinstall": "pnpm codegen",
+    "postinstall": "pnpm db:generate-client && pnpm codegen",
     "db:seed": "tsx src/db/seed.ts",
     "db:migrate": "prisma migrate dev",
     "db:generate-client": "prisma generate"
+  },
+  "prisma": {
+    "schema": "src/db/schema.prisma"
   },
   "dependencies": {
     "@apollo/server": "^4.10.0",

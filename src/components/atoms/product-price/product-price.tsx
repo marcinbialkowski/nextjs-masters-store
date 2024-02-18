@@ -1,4 +1,4 @@
-import type { Product } from '@/types';
+import type { Product } from '@/graphql/client';
 import { formatMoney } from '@/utils/format-money';
 
 interface ProductPriceProps {

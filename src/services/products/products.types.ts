@@ -1,4 +1,4 @@
-import type { Product } from '@/types';
+import type { Product } from '@/graphql/client';
 
 export interface ProductResponse {
   id: string;

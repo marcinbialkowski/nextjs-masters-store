@@ -1,28 +1,30 @@
-import { toProduct } from './products.utils';
-import type {
-  GetProductsOptions,
-  GetProductsResult,
-  ProductResponse,
-} from './products.types';
-import type { Product } from '@/types';
+import type { GetProductsOptions, GetProductsResult } from './products.types';
+import {
+  executeGraphql,
+  ProductGetBySlugDocument,
+  ProductsGetListDocument,
+  type Product,
+} from '@/graphql/client';
 
 export const getProducts = async ({
   page = 1,
   pageSize,
-}: GetProductsOptions): Promise<GetProductsResult> =>
-  // Disabled cache as response is too big, temporary until we use GQL API
-  fetch(`https://naszsklep-api.vercel.app/api/products?take=Infinity`, {
-    cache: 'no-store',
-  })
-    .then((response) => response.json())
-    .then((json: ProductResponse[]) => ({
-      pagesCount: Math.ceil(json.length / pageSize),
-      products: json
-        .slice((page - 1) * pageSize, page * pageSize)
-        .map(toProduct),
-    }));
+}: GetProductsOptions): Promise<GetProductsResult> => {
+  const result = await executeGraphql(ProductsGetListDocument, {
+    first: pageSize,
+    skip: (page - 1) * pageSize,
+  });
 
-export const getProduct = (id: Product['id']): Promise<Product> =>
-  fetch(`https://naszsklep-api.vercel.app/api/products/${id}`)
-    .then((response) => response.json())
-    .then(toProduct);
+  return {
+    products: result.products.data,
+    pagesCount: Math.ceil(result.products.meta.total / pageSize),
+  };
+};
+
+export const getProduct = async (
+  slug: Product['slug'],
+): Promise<Product | null> => {
+  const result = await executeGraphql(ProductGetBySlugDocument, { slug });
+
+  return result.product ?? null;
+};
