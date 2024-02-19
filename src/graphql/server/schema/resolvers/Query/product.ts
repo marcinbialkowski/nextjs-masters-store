@@ -5,9 +5,8 @@ export const product: NonNullable<QueryResolvers['product']> = (
   arg,
   ctx,
 ) =>
-  ctx.prisma.product.findUnique({
-    where: { slug: arg.slug },
-    include: {
-      images: true,
-    },
-  });
+  ctx.prisma.product
+    .findUnique({
+      where: { slug: arg.slug },
+    })
+    .then((product) => (product ? { ...product, images: [] } : product));

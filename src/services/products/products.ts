@@ -1,7 +1,11 @@
 import {
-  type GetProductsOptions,
+  type ProductsPaginationOptions,
   type GetProductsResult,
 } from './products.types';
+import {
+  toProductsPaginatedResult,
+  toProductsPaginationVariables,
+} from './products.utils';
 import {
   executeGraphql,
   ProductGetBySlugDocument,
@@ -9,19 +13,17 @@ import {
   type Product,
 } from '@/graphql/client';
 
-export const getProducts = async ({
-  page = 1,
-  pageSize,
-}: GetProductsOptions): Promise<GetProductsResult> => {
-  const result = await executeGraphql(ProductsGetListDocument, {
-    first: pageSize,
-    skip: (page - 1) * pageSize,
-  });
+export const getProducts = async (
+  options: ProductsPaginationOptions,
+): Promise<GetProductsResult> => {
+  const result = await executeGraphql(
+    ProductsGetListDocument,
+    toProductsPaginationVariables(options),
+  );
 
-  return {
-    products: result.products.data,
-    pagesCount: Math.ceil(result.products.meta.total / pageSize),
-  };
+  return toProductsPaginatedResult(result.products, {
+    pageSize: options.pageSize,
+  });
 };
 
 export const getProduct = async (

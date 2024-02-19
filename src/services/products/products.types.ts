@@ -1,6 +1,6 @@
 import { type Product } from '@/graphql/client';
 
-export interface GetProductsOptions {
+export interface ProductsPaginationOptions {
   page?: number;
   pageSize: number;
 }

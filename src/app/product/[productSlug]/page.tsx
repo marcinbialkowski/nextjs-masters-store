@@ -5,13 +5,13 @@ import { ProductPrice } from '@/components/atoms/product-price';
 import { getProduct } from '@/services/products';
 
 interface ProductPageProps {
-  params: { productId: string };
+  params: { productSlug: string };
 }
 
 export const generateMetadata = async ({
   params,
 }: ProductPageProps): Promise<Metadata> => {
-  const product = await getProduct(params.productId);
+  const product = await getProduct(params.productSlug);
 
   if (!product) {
     return {};
@@ -32,14 +32,14 @@ export const generateMetadata = async ({
 };
 
 const ProductPage = async ({ params }: ProductPageProps) => {
-  const product = await getProduct(params.productId);
+  const product = await getProduct(params.productSlug);
 
   if (!product) {
     notFound();
   }
 
   return (
-    <div className="grid grid-cols-1 gap-14 sm:gap-20 md:grid-cols-2 xl:gap-40">
+    <div className="grid grid-cols-1 gap-14 sm:gap-20 md:mt-6 md:grid-cols-2 xl:gap-40">
       {product.images[0] && (
         <div className="min-w-0 lg:pl-7 xl:pl-14">
           <ProductImage className="rounded-lg" image={product.images[0]} />

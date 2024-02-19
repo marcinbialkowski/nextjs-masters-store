@@ -1,19 +1,22 @@
 import clsx from 'clsx';
+import { type Route } from 'next';
 import { usePagination } from './use-pagination';
 import { PaginationEllipsis } from '@/components/atoms/pagination-ellipsis';
 import { PaginationItem } from '@/components/atoms/pagination-item';
 
-interface PaginationProps {
+interface PaginationProps<RouteInferType extends string> {
   className?: string;
   currentPage: number;
   pagesCount: number;
+  pageToHref: (page: number) => Route<RouteInferType>;
 }
 
-export const Pagination = ({
+export const Pagination = <RouteInferType extends string>({
   className,
   currentPage,
   pagesCount,
-}: PaginationProps) => {
+  pageToHref,
+}: PaginationProps<RouteInferType>) => {
   const firstPage = 1;
   const lastPage = pagesCount;
 
@@ -29,7 +32,7 @@ export const Pagination = ({
     lastPage,
   });
 
-  if (lastPage < 2) {
+  if (lastPage < 1) {
     return null;
   }
 
@@ -42,21 +45,19 @@ export const Pagination = ({
       )}
     >
       {showFirstPage && (
-        <PaginationItem href={`/products/${firstPage}`}>
+        <PaginationItem href={pageToHref(firstPage)}>
           {firstPage}
         </PaginationItem>
       )}
       {showStartEllipsis && <PaginationEllipsis />}
       {siblings.map((page) => (
-        <PaginationItem href={`/products/${page}`} key={page}>
+        <PaginationItem href={pageToHref(page)} key={page}>
           {page}
         </PaginationItem>
       ))}
       {showEndEllipsis && <PaginationEllipsis />}
       {showLastPage && (
-        <PaginationItem href={`/products/${lastPage}`}>
-          {lastPage}
-        </PaginationItem>
+        <PaginationItem href={pageToHref(lastPage)}>{lastPage}</PaginationItem>
       )}
     </nav>
   );

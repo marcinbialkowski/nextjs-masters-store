@@ -12,12 +12,20 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  'query CategoryGetBySlug($slug: String!, $productsFirst: Int, $productsSkip: Int) {\n  category(slug: $slug) {\n    name\n    products(first: $productsFirst, skip: $productsSkip) {\n      data {\n        id\n        slug\n        name\n        description\n        price\n        images {\n          id\n          url\n          alt\n          width\n          height\n        }\n      }\n      meta {\n        total\n      }\n    }\n  }\n}':
+    types.CategoryGetBySlugDocument,
   'query ProductGetBySlug($slug: String!) {\n  product(slug: $slug) {\n    id\n    slug\n    name\n    description\n    price\n    images {\n      id\n      url\n      alt\n      width\n      height\n    }\n  }\n}':
     types.ProductGetBySlugDocument,
   'query ProductsGetList($first: Int, $skip: Int) {\n  products(first: $first, skip: $skip) {\n    data {\n      id\n      slug\n      name\n      description\n      price\n      images {\n        id\n        url\n        alt\n        width\n        height\n      }\n    }\n    meta {\n      total\n    }\n  }\n}':
     types.ProductsGetListDocument,
 };
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: 'query CategoryGetBySlug($slug: String!, $productsFirst: Int, $productsSkip: Int) {\n  category(slug: $slug) {\n    name\n    products(first: $productsFirst, skip: $productsSkip) {\n      data {\n        id\n        slug\n        name\n        description\n        price\n        images {\n          id\n          url\n          alt\n          width\n          height\n        }\n      }\n      meta {\n        total\n      }\n    }\n  }\n}',
+): typeof import('./graphql').CategoryGetBySlugDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

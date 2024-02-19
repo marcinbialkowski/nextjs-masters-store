@@ -1,4 +1,5 @@
 import { getProducts } from '@/services/products';
+import { H1 } from '@/components/atoms/h1';
 import { ProductList } from '@/components/organisms/product-list';
 
 const HomePage = async () => {
@@ -8,9 +9,9 @@ const HomePage = async () => {
 
   return (
     <>
-      <h1 className="sr-only">Home</h1>
+      <H1 className="sr-only">Home</H1>
       <div data-testid="related-products">
-        <ProductList products={products} />
+        <ProductList className="md:mt-6" products={products} />
       </div>
     </>
   );

@@ -29,6 +29,19 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
+export type Category = {
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  products: ProductList;
+  slug: Scalars['String']['output'];
+};
+
+export type CategoryProductsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Image = {
   alt: Scalars['String']['output'];
   height: Scalars['Int']['output'];
@@ -57,8 +70,13 @@ export type ProductList = {
 };
 
 export type Query = {
+  category?: Maybe<Category>;
   product?: Maybe<Product>;
   products: ProductList;
+};
+
+export type QueryCategoryArgs = {
+  slug: Scalars['String']['input'];
 };
 
 export type QueryProductArgs = {
@@ -68,6 +86,35 @@ export type QueryProductArgs = {
 export type QueryProductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CategoryGetBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  productsFirst?: InputMaybe<Scalars['Int']['input']>;
+  productsSkip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type CategoryGetBySlugQuery = {
+  category?: {
+    name: string;
+    products: {
+      data: Array<{
+        id: string;
+        slug: string;
+        name: string;
+        description: string;
+        price: number;
+        images: Array<{
+          id: string;
+          url: string;
+          alt: string;
+          width: number;
+          height: number;
+        }>;
+      }>;
+      meta: { total: number };
+    };
+  } | null;
 };
 
 export type ProductGetBySlugQueryVariables = Exact<{
@@ -134,6 +181,35 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const CategoryGetBySlugDocument = new TypedDocumentString(`
+    query CategoryGetBySlug($slug: String!, $productsFirst: Int, $productsSkip: Int) {
+  category(slug: $slug) {
+    name
+    products(first: $productsFirst, skip: $productsSkip) {
+      data {
+        id
+        slug
+        name
+        description
+        price
+        images {
+          id
+          url
+          alt
+          width
+          height
+        }
+      }
+      meta {
+        total
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CategoryGetBySlugQuery,
+  CategoryGetBySlugQueryVariables
+>;
 export const ProductGetBySlugDocument = new TypedDocumentString(`
     query ProductGetBySlug($slug: String!) {
   product(slug: $slug) {

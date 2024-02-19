@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { H1 } from '@/components/atoms/h1';
 import { ProductList } from '@/components/organisms/product-list';
 import { getProducts } from '@/services/products';
 import { Pagination } from '@/components/molecules/pagination';
@@ -31,12 +32,13 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
 
   return (
     <>
-      <h1 className="sr-only">All products</h1>
+      <H1>All products</H1>
       <ProductList products={products} />
       <Pagination
         className="mt-14"
         currentPage={page}
         pagesCount={pagesCount}
+        pageToHref={(page) => `/products/${page}`}
       />
     </>
   );

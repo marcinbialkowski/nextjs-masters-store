@@ -5,8 +5,8 @@ extend type Query {
 
 type Product {
   id: ID!
-  name: String!
   slug: String!
+  name: String!
   description: String!
   price: Int!
   images: [Image!]!

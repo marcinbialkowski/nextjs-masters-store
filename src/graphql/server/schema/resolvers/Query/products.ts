@@ -12,15 +12,12 @@ export const products: NonNullable<QueryResolvers['products']> = async (
     ctx.prisma.product.findMany({
       take,
       skip,
-      include: {
-        images: true,
-      },
     }),
     ctx.prisma.product.count(),
   ]);
 
   return {
-    data,
+    data: data.map((product) => ({ ...product, images: [] })),
     meta: {
       count: data.length,
       total,
