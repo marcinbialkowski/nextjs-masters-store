@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { H1 } from '@/components/atoms/h1';
+import { MainBanner } from '@/components/atoms/main-banner';
+import { PageTitle } from '@/components/atoms/PageTitle';
 import { ProductList } from '@/components/organisms/product-list';
 import { getCollection } from '@/services/collections';
 
@@ -24,9 +25,13 @@ const CollectionPage = async ({ params }: CollectionPageProps) => {
 
   return (
     <>
-      <H1>{collection.name}</H1>
-      <p>{collection.description}</p>
-      <ProductList products={collection.products} />
+      <MainBanner>
+        <PageTitle className="mb-4">{collection.name}</PageTitle>
+        <p className="text-base text-gray-700">{collection.description}</p>
+      </MainBanner>
+      <div className="container pt-14">
+        <ProductList products={collection.products} />
+      </div>
     </>
   );
 };

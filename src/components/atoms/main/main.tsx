@@ -5,5 +5,5 @@ interface MainContainerProps {
 }
 
 export const Main = ({ children }: MainContainerProps) => (
-  <main className="container flex-1 pb-14 pt-8">{children}</main>
+  <main className="flex-1 pb-14">{children}</main>
 );

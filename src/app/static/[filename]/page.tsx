@@ -12,7 +12,7 @@ const StaticPage = async ({ params }: StaticPageProps) => {
   );
 
   return (
-    <article className="prose mx-auto">
+    <article className="prose mx-auto pt-14">
       <Content />
     </article>
   );

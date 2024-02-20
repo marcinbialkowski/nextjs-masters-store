@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { H1 } from '@/components/atoms/h1';
+import { MainBanner } from '@/components/atoms/main-banner';
+import { PageTitle } from '@/components/atoms/PageTitle';
 import { ProductList } from '@/components/organisms/product-list';
 import { getProducts } from '@/services/products';
 import { Pagination } from '@/components/molecules/pagination';
@@ -32,14 +33,18 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
 
   return (
     <>
-      <H1>All products</H1>
-      <ProductList products={products} />
-      <Pagination
-        className="mt-14"
-        currentPage={page}
-        pagesCount={pagesCount}
-        pageToHref={(page) => `/products/${page}`}
-      />
+      <MainBanner>
+        <PageTitle>All products</PageTitle>
+      </MainBanner>
+      <div className="container pt-14">
+        <ProductList products={products} />
+        <Pagination
+          className="mt-14"
+          currentPage={page}
+          pagesCount={pagesCount}
+          pageToHref={(page) => `/products/${page}`}
+        />
+      </div>
     </>
   );
 };

@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
-import { H1 } from '@/components/atoms/h1';
+import { PageTitle } from '@/components/atoms/PageTitle';
 import { ProductList } from '@/components/organisms/product-list';
 import { Pagination } from '@/components/molecules/pagination';
 import { parsePageParam } from '@/utils/parse-page-param';
 import { getCategory } from '@/services/categories';
+import { MainBanner } from '@/components/atoms/main-banner';
 
 interface CategoryPageProps {
   params: {
@@ -29,14 +30,18 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
   return (
     <>
-      <H1>{category.name}</H1>
-      <ProductList products={category.products} />
-      <Pagination
-        className="mt-14"
-        currentPage={page}
-        pagesCount={category.pagesCount}
-        pageToHref={(page) => `/categories/${slug}/${page}`}
-      />
+      <MainBanner>
+        <PageTitle>{category.name}</PageTitle>
+      </MainBanner>
+      <div className="container pt-14">
+        <ProductList products={category.products} />
+        <Pagination
+          className="mt-14"
+          currentPage={page}
+          pagesCount={category.pagesCount}
+          pageToHref={(page) => `/categories/${slug}/${page}`}
+        />
+      </div>
     </>
   );
 };

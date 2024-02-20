@@ -1,5 +1,6 @@
+import { MainBanner } from '@/components/atoms/main-banner';
+import { PageTitle } from '@/components/atoms/PageTitle';
 import { getProducts } from '@/services/products';
-import { H1 } from '@/components/atoms/h1';
 import { CollectionList } from '@/components/organisms/collection-list';
 import { ProductList } from '@/components/organisms/product-list';
 
@@ -44,11 +45,15 @@ const HomePage = async () => {
 
   return (
     <>
-      <H1 className="sr-only">Home</H1>
-      <CollectionList collections={collections} />
-      <div data-testid="related-products">
-        <ProductList className="md:mt-6" products={products} />
-      </div>
+      <PageTitle className="sr-only">Home</PageTitle>
+      <MainBanner tag="section">
+        <h2 className="sr-only">Collections</h2>
+        <CollectionList collections={collections} />
+      </MainBanner>
+      <section className="container pt-14" data-testid="related-products">
+        <h2 className="sr-only">Recommended products</h2>
+        <ProductList products={products} />
+      </section>
     </>
   );
 };

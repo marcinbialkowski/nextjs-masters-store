@@ -17,7 +17,7 @@ export const ProductList = ({ className, products }: ProductListProps) => {
     <ul
       className={clsx(
         className,
-        'grid w-full grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4',
+        'grid w-full grid-cols-2 gap-4 xl:grid-cols-4',
       )}
       data-testid="products-list"
     >
