@@ -42,6 +42,19 @@ export type CategoryProductsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type Collection = {
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  products: ProductList;
+  slug: Scalars['String']['output'];
+};
+
+export type CollectionProductsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Image = {
   alt: Scalars['String']['output'];
   height: Scalars['Int']['output'];
@@ -71,11 +84,16 @@ export type ProductList = {
 
 export type Query = {
   category?: Maybe<Category>;
+  collection?: Maybe<Collection>;
   product?: Maybe<Product>;
   products: ProductList;
 };
 
 export type QueryCategoryArgs = {
+  slug: Scalars['String']['input'];
+};
+
+export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
 };
 
@@ -97,6 +115,36 @@ export type CategoryGetBySlugQueryVariables = Exact<{
 export type CategoryGetBySlugQuery = {
   category?: {
     name: string;
+    products: {
+      data: Array<{
+        id: string;
+        slug: string;
+        name: string;
+        description: string;
+        price: number;
+        images: Array<{
+          id: string;
+          url: string;
+          alt: string;
+          width: number;
+          height: number;
+        }>;
+      }>;
+      meta: { total: number };
+    };
+  } | null;
+};
+
+export type CollectionGetBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  productsFirst?: InputMaybe<Scalars['Int']['input']>;
+  productsSkip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type CollectionGetBySlugQuery = {
+  collection?: {
+    name: string;
+    description: string;
     products: {
       data: Array<{
         id: string;
@@ -209,6 +257,36 @@ export const CategoryGetBySlugDocument = new TypedDocumentString(`
     `) as unknown as TypedDocumentString<
   CategoryGetBySlugQuery,
   CategoryGetBySlugQueryVariables
+>;
+export const CollectionGetBySlugDocument = new TypedDocumentString(`
+    query CollectionGetBySlug($slug: String!, $productsFirst: Int, $productsSkip: Int) {
+  collection(slug: $slug) {
+    name
+    description
+    products(first: $productsFirst, skip: $productsSkip) {
+      data {
+        id
+        slug
+        name
+        description
+        price
+        images {
+          id
+          url
+          alt
+          width
+          height
+        }
+      }
+      meta {
+        total
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CollectionGetBySlugQuery,
+  CollectionGetBySlugQueryVariables
 >;
 export const ProductGetBySlugDocument = new TypedDocumentString(`
     query ProductGetBySlug($slug: String!) {

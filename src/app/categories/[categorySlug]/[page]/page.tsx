@@ -5,7 +5,7 @@ import { Pagination } from '@/components/molecules/pagination';
 import { parsePageParam } from '@/utils/parse-page-param';
 import { getCategory } from '@/services/categories';
 
-interface ProductsPageProps {
+interface CategoryPageProps {
   params: {
     categorySlug: string;
     page: string;
@@ -14,7 +14,7 @@ interface ProductsPageProps {
 
 const pageSize = 4;
 
-const CategoryPage = async ({ params }: ProductsPageProps) => {
+const CategoryPage = async ({ params }: CategoryPageProps) => {
   const { categorySlug: slug } = params;
   const page = parsePageParam(params.page);
 

@@ -46,6 +46,20 @@ export type CategoryproductsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type Collection = {
+  __typename?: 'Collection';
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  products: ProductList;
+  slug: Scalars['String']['output'];
+};
+
+export type CollectionproductsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Image = {
   __typename?: 'Image';
   alt: Scalars['String']['output'];
@@ -80,11 +94,16 @@ export type ProductList = {
 export type Query = {
   __typename?: 'Query';
   category?: Maybe<Category>;
+  collection?: Maybe<Collection>;
   product?: Maybe<Product>;
   products: ProductList;
 };
 
 export type QuerycategoryArgs = {
+  slug: Scalars['String']['input'];
+};
+
+export type QuerycollectionArgs = {
   slug: Scalars['String']['input'];
 };
 
@@ -208,6 +227,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Collection: ResolverTypeWrapper<Collection>;
   Image: ResolverTypeWrapper<Image>;
   ListMeta: ResolverTypeWrapper<ListMeta>;
   Product: ResolverTypeWrapper<Product>;
@@ -222,6 +242,7 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
+  Collection: Collection;
   Image: Image;
   ListMeta: ListMeta;
   Product: Product;
@@ -243,6 +264,24 @@ export type CategoryResolvers<
     ParentType,
     ContextType,
     Partial<CategoryproductsArgs>
+  >;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CollectionResolvers<
+  ContextType = ApolloContext,
+  ParentType extends
+    ResolversParentTypes['Collection'] = ResolversParentTypes['Collection'],
+> = {
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  products?: Resolver<
+    ResolversTypes['ProductList'],
+    ParentType,
+    ContextType,
+    Partial<CollectionproductsArgs>
   >;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -306,6 +345,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QuerycategoryArgs, 'slug'>
   >;
+  collection?: Resolver<
+    Maybe<ResolversTypes['Collection']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerycollectionArgs, 'slug'>
+  >;
   product?: Resolver<
     Maybe<ResolversTypes['Product']>,
     ParentType,
@@ -322,6 +367,7 @@ export type QueryResolvers<
 
 export type Resolvers<ContextType = ApolloContext> = {
   Category?: CategoryResolvers<ContextType>;
+  Collection?: CollectionResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   ListMeta?: ListMetaResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
