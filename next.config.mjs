@@ -2,6 +2,15 @@ import nextMDX from '@next/mdx';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.hyperfunctor.com',
+        pathname: '/uploads/**',
+      },
+    ],
+  },
   experimental: {
     mdxRs: true,
     typedRoutes: true,

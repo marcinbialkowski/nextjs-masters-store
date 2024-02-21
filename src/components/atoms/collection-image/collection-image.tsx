@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import NextImage from 'next/image';
 
 export interface CollectionImageProps {
   className?: string;
@@ -11,7 +12,7 @@ export interface CollectionImageProps {
 }
 
 export const CollectionImage = ({ className, image }: CollectionImageProps) => (
-  <img
+  <NextImage
     alt={image.alt}
     src={image.url}
     className={clsx(

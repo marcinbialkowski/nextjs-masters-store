@@ -1,8 +1,8 @@
+import { Suspense } from 'react';
 import { MainBanner } from '@/components/atoms/main-banner';
 import { PageTitle } from '@/components/atoms/PageTitle';
-import { getProducts } from '@/services/products';
 import { CollectionList } from '@/components/organisms/collection-list';
-import { ProductList } from '@/components/organisms/product-list';
+import { RecommendedProductList } from '@/components/organisms/recommended-product-list';
 
 // TODO: add collection image to db and fetch the list from API
 const collections = [
@@ -38,24 +38,20 @@ const collections = [
   },
 ];
 
-const HomePage = async () => {
-  const { products } = await getProducts({
-    pageSize: 4,
-  });
-
-  return (
-    <>
-      <PageTitle className="sr-only">Home</PageTitle>
-      <MainBanner tag="section">
-        <h2 className="sr-only">Collections</h2>
-        <CollectionList collections={collections} />
-      </MainBanner>
-      <section className="container pt-14" data-testid="related-products">
-        <h2 className="sr-only">Recommended products</h2>
-        <ProductList products={products} />
-      </section>
-    </>
-  );
-};
+const HomePage = () => (
+  <>
+    <PageTitle className="sr-only">Home</PageTitle>
+    <MainBanner tag="section">
+      <h2 className="sr-only">Collections</h2>
+      <CollectionList collections={collections} />
+    </MainBanner>
+    <section className="container pt-14" data-testid="related-products">
+      <h2 className="sr-only">Recommended products</h2>
+      <Suspense>
+        <RecommendedProductList />
+      </Suspense>
+    </section>
+  </>
+);
 
 export default HomePage;

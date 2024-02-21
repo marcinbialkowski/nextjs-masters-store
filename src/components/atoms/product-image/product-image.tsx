@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import NextImage from 'next/image';
 import { type ImageFragment } from '@/graphql/client';
 
 interface ProductImageProps {
@@ -7,7 +8,7 @@ interface ProductImageProps {
 }
 
 export const ProductImage = ({ className, image }: ProductImageProps) => (
-  <img
+  <NextImage
     alt={image.alt}
     src={image.url}
     className={clsx(

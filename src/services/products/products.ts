@@ -12,6 +12,7 @@ import {
   ProductGetBySlugDocument,
   ProductsGetListDocument,
   type ProductFragment,
+  type ProductListItemFragment,
 } from '@/graphql/client';
 
 export const getProducts = async (
@@ -27,10 +28,16 @@ export const getProducts = async (
   });
 };
 
-export const getProduct = async (
-  slug: ProductFragment['slug'],
-): Promise<GetProductResult> => {
-  const result = await executeGraphql(ProductGetBySlugDocument, { slug });
+export const getRandomProducts = (
+  count: number,
+): Promise<ProductListItemFragment[]> =>
+  getProducts({ pageSize: count * 5 }).then(({ products }) =>
+    products.sort(() => 0.5 - Math.random()).slice(0, count),
+  );
 
-  return result.product ?? null;
-};
+export const getProduct = (
+  slug: ProductFragment['slug'],
+): Promise<GetProductResult> =>
+  executeGraphql(ProductGetBySlugDocument, { slug }).then(
+    (result) => result.product ?? null,
+  );
