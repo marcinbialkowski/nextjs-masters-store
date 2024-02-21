@@ -1,4 +1,7 @@
-import { type Product } from '@/graphql/client';
+import {
+  type ProductFragment,
+  type ProductListItemFragment,
+} from '@/graphql/client';
 
 export interface ProductsPaginationOptions {
   page?: number;
@@ -6,6 +9,8 @@ export interface ProductsPaginationOptions {
 }
 
 export interface GetProductsResult {
-  products: Product[];
+  products: ProductListItemFragment[];
   pagesCount: number;
 }
+
+export type GetProductResult = ProductFragment | null;

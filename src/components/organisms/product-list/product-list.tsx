@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { NoProducts } from '@/components/atoms/no-products';
 import { ProductListItem } from '@/components/molecules/product-list-item';
-import { type Product } from '@/graphql/client';
+import { type ProductListItemFragment } from '@/graphql/client';
 
 interface ProductListProps {
   className?: string;
-  products: Product[];
+  products: ProductListItemFragment[];
 }
 
 export const ProductList = ({ className, products }: ProductListProps) => {
@@ -22,7 +22,7 @@ export const ProductList = ({ className, products }: ProductListProps) => {
       data-testid="products-list"
     >
       {products.map((product) => (
-        <ProductListItem key={product.id} product={product} />
+        <ProductListItem key={product.slug} product={product} />
       ))}
     </ul>
   );

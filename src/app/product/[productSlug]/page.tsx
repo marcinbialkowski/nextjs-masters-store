@@ -48,7 +48,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
       <div>
         <h1 className="mb-4 text-4xl">{product.name}</h1>
         <p className="mb-6 text-base text-gray-600">{product.description}</p>
-        <ProductPrice className="text-2xl" product={product} />
+        <ProductPrice className="text-2xl" price={product.price} />
       </div>
     </div>
   );

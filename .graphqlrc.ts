@@ -5,7 +5,7 @@ const config = {
   overwrite: true,
   ignoreNoDocuments: true,
   schema: 'src/graphql/schema/**/*.graphql',
-  documents: 'src/graphql/client/documents/**/*.graphql',
+  documents: 'src/graphql/documents/**/*.graphql',
   generates: {
     'src/graphql/server/': defineConfig({
       typesPluginsConfig: {

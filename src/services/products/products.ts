@@ -1,6 +1,7 @@
 import {
   type ProductsPaginationOptions,
   type GetProductsResult,
+  type GetProductResult,
 } from './products.types';
 import {
   toProductsPaginatedResult,
@@ -10,7 +11,7 @@ import {
   executeGraphql,
   ProductGetBySlugDocument,
   ProductsGetListDocument,
-  type Product,
+  type ProductFragment,
 } from '@/graphql/client';
 
 export const getProducts = async (
@@ -27,8 +28,8 @@ export const getProducts = async (
 };
 
 export const getProduct = async (
-  slug: Product['slug'],
-): Promise<Product | null> => {
+  slug: ProductFragment['slug'],
+): Promise<GetProductResult> => {
   const result = await executeGraphql(ProductGetBySlugDocument, { slug });
 
   return result.product ?? null;

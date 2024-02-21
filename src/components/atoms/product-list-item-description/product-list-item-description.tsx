@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { ProductPrice } from '@/components/atoms/product-price';
-import { type Product } from '@/graphql/client';
+import { type ProductListItemFragment } from '@/graphql/client';
 
 interface ProductListItemDescriptionProps {
-  product: Product;
+  product: ProductListItemFragment;
 }
 
 export const ProductListItemDescription = ({
@@ -16,6 +16,6 @@ export const ProductListItemDescription = ({
     >
       <h3>{product.name}</h3>
     </Link>
-    <ProductPrice product={product} />
+    <ProductPrice price={product.price} />
   </div>
 );

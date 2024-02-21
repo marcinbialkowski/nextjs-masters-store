@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import { type Product } from '@/graphql/client';
+import { type ImageFragment } from '@/graphql/client';
 
 interface ProductImageProps {
   className?: string;
-  image: Product['images'][number];
+  image: ImageFragment;
 }
 
 export const ProductImage = ({ className, image }: ProductImageProps) => (

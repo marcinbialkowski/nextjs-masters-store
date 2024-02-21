@@ -3,11 +3,11 @@ import { formatMoney } from '@/utils/format-money';
 
 interface ProductPriceProps {
   className?: string;
-  product: Product;
+  price: Product['price'];
 }
 
-export const ProductPrice = ({ className, product }: ProductPriceProps) => (
+export const ProductPrice = ({ className, price }: ProductPriceProps) => (
   <p className={className}>
-    <span className="sr-only">Price:</span> {formatMoney(product.price)}
+    <span className="sr-only">Price:</span> {formatMoney(price)}
   </p>
 );
