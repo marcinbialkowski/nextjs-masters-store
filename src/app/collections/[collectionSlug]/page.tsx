@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
@@ -11,6 +12,23 @@ interface CollectionPageProps {
 }
 
 const pageSize = 12;
+
+export const generateMetadata = async ({
+  params,
+}: CollectionPageProps): Promise<Metadata> => {
+  const { collectionSlug: slug } = params;
+
+  // TODO: separate query without products
+  const collection = await getCollection(slug, {
+    pageSize,
+  });
+
+  return collection
+    ? {
+        title: `${collection.name} - NextStore`,
+      }
+    : {};
+};
 
 const CollectionPage = async ({ params }: CollectionPageProps) => {
   const { collectionSlug: slug } = params;

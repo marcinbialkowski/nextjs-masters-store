@@ -12,8 +12,9 @@ interface SearchInputProps {
 
 export const SearchInput = ({ className }: SearchInputProps) => {
   const searchParams = useSearchParams();
-  const [value, setValue] = useState(searchParams.get('query') ?? '');
-  const triggerSearch = useSearch(searchParams);
+  const initialQuery = decodeURIComponent(searchParams.get('query') ?? '');
+  const [value, setValue] = useState(initialQuery);
+  const triggerSearch = useSearch();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const query = event.target.value;

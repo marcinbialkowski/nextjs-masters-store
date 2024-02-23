@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageTitle } from '@/components/atoms/page-title';
 import { ProductList } from '@/components/organisms/product-list';
@@ -14,6 +15,25 @@ interface CategoryPageProps {
 }
 
 const pageSize = 4;
+
+export const generateMetadata = async ({
+  params,
+}: CategoryPageProps): Promise<Metadata> => {
+  const { categorySlug: slug } = params;
+  const page = parsePageParam(params.page);
+
+  // TODO: separate query without products
+  const category = await getCategory(slug, {
+    page,
+    pageSize,
+  });
+
+  return category
+    ? {
+        title: `${category.name} - NextStore`,
+      }
+    : {};
+};
 
 const CategoryPage = async ({ params }: CategoryPageProps) => {
   const { categorySlug: slug } = params;

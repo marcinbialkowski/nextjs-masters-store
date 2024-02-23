@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
 import { CollectionList } from '@/components/organisms/collection-list';
@@ -45,11 +44,9 @@ const HomePage = () => (
       <h2 className="sr-only">Collections</h2>
       <CollectionList collections={collections} />
     </MainBanner>
-    <section className="container pt-14" data-testid="related-products">
+    <section className="container pt-14">
       <h2 className="sr-only">Recommended products</h2>
-      <Suspense>
-        <RecommendedProductList />
-      </Suspense>
+      <RecommendedProductList />
     </section>
   </>
 );

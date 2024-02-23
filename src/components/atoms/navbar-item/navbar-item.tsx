@@ -1,4 +1,4 @@
-import { type ComponentProps, type ElementType, type ReactNode } from 'react';
+import { type ComponentProps } from 'react';
 import { ActiveLink } from '@/components/atoms/active-link';
 
 interface NavLinkProps<RouteInferType extends string>
@@ -7,22 +7,18 @@ interface NavLinkProps<RouteInferType extends string>
     'children' | 'href'
   > {
   className?: string;
-  tag?: ElementType<{
-    className?: string;
-    children?: ReactNode;
-  }>;
 }
 
 export const NavbarItem = <RouteInferType extends string>({
   className,
-  tag: Tag = 'li',
   ...props
 }: NavLinkProps<RouteInferType>) => (
-  <Tag className={className}>
+  <li className={className}>
     <ActiveLink
       {...props}
-      activeClassName="font-bold"
-      className="text-sm text-gray-600 hover:underline"
+      activeClassName="font-bold border-b border-b-green-700"
+      className="text-sm text-gray-600"
+      inactiveClassName="hover:border-b hover:border-b-gray-600"
     />
-  </Tag>
+  </li>
 );

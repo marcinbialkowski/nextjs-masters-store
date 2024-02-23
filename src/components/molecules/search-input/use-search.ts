@@ -1,15 +1,16 @@
 import { useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
-export const useSearch = (searchParams: URLSearchParams) => {
+// TODO: replace encode/decodeURIComponent with
+// new URLSearchParams(currentParams).set(...)
+// https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
+export const useSearch = () => {
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { replace } = useRouter();
 
   return useDebouncedCallback((query: string) => {
     if (query) {
-      const params = new URLSearchParams(searchParams);
-      params.set('query', query);
-      replace(`/search?${params.toString()}`);
+      replace(`/search?query=${encodeURIComponent(query)}`);
     }
   }, 500);
 };
