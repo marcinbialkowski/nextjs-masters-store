@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
+import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
-import { PageTitle } from '@/components/atoms/PageTitle';
 import { ProductList } from '@/components/organisms/product-list';
 import { getCollection } from '@/services/collections';
 

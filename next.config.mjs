@@ -21,7 +21,7 @@ const nextConfig = {
     },
   },
   pageExtensions: ['ts', 'tsx', 'mdx'],
-  redirects: async () => [
+  redirects: () => [
     {
       source: '/products',
       destination: '/products/1',
@@ -31,6 +31,12 @@ const nextConfig = {
       source: '/categories/:categorySlug',
       destination: '/categories/:categorySlug/1',
       permanent: true,
+    },
+  ],
+  rewrites: () => [
+    {
+      source: '/search',
+      destination: '/search/1',
     },
   ],
 };

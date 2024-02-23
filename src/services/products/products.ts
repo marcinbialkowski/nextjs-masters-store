@@ -18,10 +18,10 @@ import {
 export const getProducts = async (
   options: ProductsPaginationOptions,
 ): Promise<GetProductsResult> => {
-  const result = await executeGraphql(
-    ProductsGetListDocument,
-    toProductsPaginationVariables(options),
-  );
+  const result = await executeGraphql(ProductsGetListDocument, {
+    ...toProductsPaginationVariables(options),
+    ...(options.search ? { search: options.search } : {}),
+  });
 
   return toProductsPaginatedResult(result.products, {
     pageSize: options.pageSize,

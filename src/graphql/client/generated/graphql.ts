@@ -103,6 +103,7 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -208,6 +209,7 @@ export type ProductGetBySlugQuery = {
 export type ProductsGetListQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type ProductsGetListQuery = {
@@ -412,8 +414,8 @@ fragment Product on Product {
   ProductGetBySlugQueryVariables
 >;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList($first: Int, $skip: Int) {
-  products(first: $first, skip: $skip) {
+    query ProductsGetList($first: Int, $skip: Int, $search: String) {
+  products(first: $first, skip: $skip, search: $search) {
     ...ProductList
   }
 }

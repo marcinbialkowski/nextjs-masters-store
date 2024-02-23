@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { PageTitle } from '@/components/atoms/PageTitle';
+import { PageTitle } from '@/components/atoms/page-title';
 import { ProductList } from '@/components/organisms/product-list';
 import { Pagination } from '@/components/molecules/pagination';
 import { parsePageParam } from '@/utils/parse-page-param';

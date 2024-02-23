@@ -1,4 +1,4 @@
-import { PageTitle } from '@/components/atoms/PageTitle';
+import { PageTitle } from '@/components/atoms/page-title';
 
 const ProductPage = () => (
   <div className="container pt-14">

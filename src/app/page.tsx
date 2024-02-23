@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
+import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
-import { PageTitle } from '@/components/atoms/PageTitle';
 import { CollectionList } from '@/components/organisms/collection-list';
 import { RecommendedProductList } from '@/components/organisms/recommended-product-list';
 

@@ -2,29 +2,31 @@ import { notFound } from 'next/navigation';
 import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
 import { ProductList } from '@/components/organisms/product-list';
-import { getProducts } from '@/services/products';
 import { Pagination } from '@/components/molecules/pagination';
+import { getProducts } from '@/services/products';
 import { parsePageParam } from '@/utils/parse-page-param';
 
-interface ProductsPageProps {
+interface SearchPageProps {
   params: { page: string };
+  searchParams?: {
+    query?: string;
+  };
 }
 
 const pageSize = 4;
 
-export const generateStaticParams = async () => {
-  const { pagesCount } = await getProducts({ pageSize });
-  return Array.from({ length: Math.min(pagesCount, 5) }, (_v, index) => ({
-    page: `${index + 1}`,
-  }));
-};
-
-const ProductsPage = async ({ params }: ProductsPageProps) => {
+const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
+  const query = searchParams?.query;
   const page = parsePageParam(params.page);
+
+  if (!query) {
+    return notFound();
+  }
 
   const { products, pagesCount } = await getProducts({
     page,
     pageSize,
+    search: query,
   });
 
   if (products.length === 0 && page > 1) {
@@ -34,7 +36,7 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
   return (
     <>
       <MainBanner>
-        <PageTitle>All products</PageTitle>
+        <PageTitle>Search result for phrase: &quot;{query}&quot;</PageTitle>
       </MainBanner>
       <div className="container pt-14">
         <ProductList products={products} />
@@ -42,11 +44,15 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
           className="mt-14"
           currentPage={page}
           pagesCount={pagesCount}
-          pageToHref={(page) => `/products/${page}`}
+          pageToHref={(page) =>
+            page === 1
+              ? `/search?query=${query}`
+              : `/search/${page}?query=${query}`
+          }
         />
       </div>
     </>
   );
 };
 
-export default ProductsPage;
+export default SearchPage;

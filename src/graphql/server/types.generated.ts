@@ -113,6 +113,7 @@ export type QueryproductArgs = {
 
 export type QueryproductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 

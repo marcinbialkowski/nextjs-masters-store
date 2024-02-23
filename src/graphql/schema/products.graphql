@@ -1,6 +1,6 @@
 extend type Query {
   product(slug: String!): Product
-  products(first: Int, skip: Int): ProductList!
+  products(first: Int, skip: Int, search: String): ProductList!
 }
 
 type Product {
