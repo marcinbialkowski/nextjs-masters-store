@@ -22,7 +22,6 @@ export const generateMetadata = async ({
   const { categorySlug: slug } = params;
   const page = parsePageParam(params.page);
 
-  // TODO: separate query without products
   const category = await getCategory(slug, {
     page,
     pageSize,

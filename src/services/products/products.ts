@@ -1,3 +1,4 @@
+import { unstable_cache as cache } from 'next/cache';
 import {
   type ProductsPaginationOptions,
   type GetProductsResult,
@@ -15,18 +16,20 @@ import {
   type ProductListItemFragment,
 } from '@/graphql/client';
 
-export const getProducts = async (
-  options: ProductsPaginationOptions,
-): Promise<GetProductsResult> => {
-  const result = await executeGraphql(ProductsGetListDocument, {
-    ...toProductsPaginationVariables(options),
-    ...(options.search ? { search: options.search } : {}),
-  });
+export const getProducts = cache(
+  async (options: ProductsPaginationOptions): Promise<GetProductsResult> => {
+    const result = await executeGraphql(ProductsGetListDocument, {
+      ...toProductsPaginationVariables(options),
+      ...(options.search ? { search: options.search } : {}),
+    });
 
-  return toProductsPaginatedResult(result.products, {
-    pageSize: options.pageSize,
-  });
-};
+    return toProductsPaginatedResult(result.products, {
+      pageSize: options.pageSize,
+    });
+  },
+  ['get-products'],
+  { tags: ['products'] },
+);
 
 export const getRandomProducts = (
   count: number,
@@ -35,9 +38,10 @@ export const getRandomProducts = (
     products.sort(() => 0.5 - Math.random()).slice(0, count),
   );
 
-export const getProduct = (
-  slug: ProductFragment['slug'],
-): Promise<GetProductResult> =>
-  executeGraphql(ProductGetBySlugDocument, { slug }).then(
-    (result) => result.product ?? null,
-  );
+export const getProduct = cache(
+  (slug: ProductFragment['slug']): Promise<GetProductResult> =>
+    executeGraphql(ProductGetBySlugDocument, { slug }).then(
+      (result) => result.product ?? null,
+    ),
+  ['get-product'],
+);

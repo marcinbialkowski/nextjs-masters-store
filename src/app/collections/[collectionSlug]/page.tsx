@@ -18,7 +18,6 @@ export const generateMetadata = async ({
 }: CollectionPageProps): Promise<Metadata> => {
   const { collectionSlug: slug } = params;
 
-  // TODO: separate query without products
   const collection = await getCollection(slug, {
     pageSize,
   });
