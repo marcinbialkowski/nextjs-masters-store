@@ -1,0 +1,7 @@
+fragment CartItem on OrderItem {
+  id
+  quantity
+  product {
+    ...ProductListItem
+  }
+}

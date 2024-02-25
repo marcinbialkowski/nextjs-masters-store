@@ -16,6 +16,6 @@ export const ProductListItemDescription = ({
     >
       <h3>{product.name}</h3>
     </Link>
-    <ProductPrice price={product.price} />
+    <ProductPrice className="text-gray-600" price={product.price} />
   </div>
 );

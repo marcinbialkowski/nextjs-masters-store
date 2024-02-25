@@ -68,6 +68,43 @@ export type ListMeta = {
   total: Scalars['Int']['output'];
 };
 
+export type Mutation = {
+  orderAddItem: Order;
+  orderChangeItemQuantity: Order;
+  orderCreate: Order;
+  orderRemoveItem: Order;
+};
+
+export type MutationOrderAddItemArgs = {
+  orderId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+};
+
+export type MutationOrderChangeItemQuantityArgs = {
+  orderId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+};
+
+export type MutationOrderRemoveItemArgs = {
+  orderId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+};
+
+export type Order = {
+  id: Scalars['ID']['output'];
+  items: Array<OrderItem>;
+  status: OrderStatus;
+};
+
+export type OrderItem = {
+  id: Scalars['ID']['output'];
+  product: Product;
+  quantity: Scalars['Int']['output'];
+};
+
+export type OrderStatus = 'CANCELLED' | 'CREATED' | 'FULFILLED' | 'PAID';
+
 export type Product = {
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
@@ -85,6 +122,7 @@ export type ProductList = {
 export type Query = {
   category?: Maybe<Category>;
   collection?: Maybe<Collection>;
+  order?: Maybe<Order>;
   product?: Maybe<Product>;
   products: ProductList;
 };
@@ -97,6 +135,11 @@ export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
 };
 
+export type QueryOrderArgs = {
+  id: Scalars['ID']['input'];
+  status?: InputMaybe<OrderStatus>;
+};
+
 export type QueryProductArgs = {
   slug: Scalars['String']['input'];
 };
@@ -107,6 +150,38 @@ export type QueryProductsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type CartFragment = {
+  id: string;
+  items: Array<{
+    id: string;
+    quantity: number;
+    product: {
+      id: string;
+      slug: string;
+      name: string;
+      price: number;
+      images: Array<{
+        url: string;
+        alt: string;
+        width: number;
+        height: number;
+      }>;
+    };
+  }>;
+};
+
+export type CartItemFragment = {
+  id: string;
+  quantity: number;
+  product: {
+    id: string;
+    slug: string;
+    name: string;
+    price: number;
+    images: Array<{ url: string; alt: string; width: number; height: number }>;
+  };
+};
+
 export type ImageFragment = {
   url: string;
   alt: string;
@@ -115,6 +190,7 @@ export type ImageFragment = {
 };
 
 export type ProductFragment = {
+  id: string;
   slug: string;
   name: string;
   description: string;
@@ -124,6 +200,7 @@ export type ProductFragment = {
 
 export type ProductListFragment = {
   data: Array<{
+    id: string;
     slug: string;
     name: string;
     price: number;
@@ -133,10 +210,65 @@ export type ProductListFragment = {
 };
 
 export type ProductListItemFragment = {
+  id: string;
   slug: string;
   name: string;
   price: number;
   images: Array<{ url: string; alt: string; width: number; height: number }>;
+};
+
+export type CartAddItemMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+}>;
+
+export type CartAddItemMutation = { orderAddItem: { id: string } };
+
+export type CartChangeItemQuantityMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+}>;
+
+export type CartChangeItemQuantityMutation = {
+  orderChangeItemQuantity: { id: string };
+};
+
+export type CartCreateMutationVariables = Exact<{ [key: string]: never }>;
+
+export type CartCreateMutation = { orderCreate: { id: string } };
+
+export type CartRemoveItemMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+}>;
+
+export type CartRemoveItemMutation = { orderRemoveItem: { id: string } };
+
+export type CartGetByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+export type CartGetByIdQuery = {
+  order?: {
+    id: string;
+    items: Array<{
+      id: string;
+      quantity: number;
+      product: {
+        id: string;
+        slug: string;
+        name: string;
+        price: number;
+        images: Array<{
+          url: string;
+          alt: string;
+          width: number;
+          height: number;
+        }>;
+      };
+    }>;
+  } | null;
 };
 
 export type CategoryGetBySlugQueryVariables = Exact<{
@@ -150,6 +282,7 @@ export type CategoryGetBySlugQuery = {
     name: string;
     products: {
       data: Array<{
+        id: string;
         slug: string;
         name: string;
         price: number;
@@ -177,6 +310,7 @@ export type CollectionGetBySlugQuery = {
     description: string;
     products: {
       data: Array<{
+        id: string;
         slug: string;
         name: string;
         price: number;
@@ -198,6 +332,7 @@ export type ProductGetBySlugQueryVariables = Exact<{
 
 export type ProductGetBySlugQuery = {
   product?: {
+    id: string;
     slug: string;
     name: string;
     description: string;
@@ -215,6 +350,7 @@ export type ProductsGetListQueryVariables = Exact<{
 export type ProductsGetListQuery = {
   products: {
     data: Array<{
+      id: string;
       slug: string;
       name: string;
       price: number;
@@ -257,9 +393,87 @@ export const ImageFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'Image' },
 ) as unknown as TypedDocumentString<ImageFragment, unknown>;
+export const ProductListItemFragmentDoc = new TypedDocumentString(
+  `
+    fragment ProductListItem on Product {
+  id
+  slug
+  name
+  price
+  images {
+    ...Image
+  }
+}
+    fragment Image on Image {
+  url
+  alt
+  width
+  height
+}`,
+  { fragmentName: 'ProductListItem' },
+) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CartItemFragmentDoc = new TypedDocumentString(
+  `
+    fragment CartItem on OrderItem {
+  id
+  quantity
+  product {
+    ...ProductListItem
+  }
+}
+    fragment Image on Image {
+  url
+  alt
+  width
+  height
+}
+fragment ProductListItem on Product {
+  id
+  slug
+  name
+  price
+  images {
+    ...Image
+  }
+}`,
+  { fragmentName: 'CartItem' },
+) as unknown as TypedDocumentString<CartItemFragment, unknown>;
+export const CartFragmentDoc = new TypedDocumentString(
+  `
+    fragment Cart on Order {
+  id
+  items {
+    ...CartItem
+  }
+}
+    fragment CartItem on OrderItem {
+  id
+  quantity
+  product {
+    ...ProductListItem
+  }
+}
+fragment Image on Image {
+  url
+  alt
+  width
+  height
+}
+fragment ProductListItem on Product {
+  id
+  slug
+  name
+  price
+  images {
+    ...Image
+  }
+}`,
+  { fragmentName: 'Cart' },
+) as unknown as TypedDocumentString<CartFragment, unknown>;
 export const ProductFragmentDoc = new TypedDocumentString(
   `
     fragment Product on Product {
+  id
   slug
   name
   description
@@ -276,24 +490,6 @@ export const ProductFragmentDoc = new TypedDocumentString(
 }`,
   { fragmentName: 'Product' },
 ) as unknown as TypedDocumentString<ProductFragment, unknown>;
-export const ProductListItemFragmentDoc = new TypedDocumentString(
-  `
-    fragment ProductListItem on Product {
-  slug
-  name
-  price
-  images {
-    ...Image
-  }
-}
-    fragment Image on Image {
-  url
-  alt
-  width
-  height
-}`,
-  { fragmentName: 'ProductListItem' },
-) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
 export const ProductListFragmentDoc = new TypedDocumentString(
   `
     fragment ProductList on ProductList {
@@ -311,6 +507,7 @@ export const ProductListFragmentDoc = new TypedDocumentString(
   height
 }
 fragment ProductListItem on Product {
+  id
   slug
   name
   price
@@ -320,6 +517,87 @@ fragment ProductListItem on Product {
 }`,
   { fragmentName: 'ProductList' },
 ) as unknown as TypedDocumentString<ProductListFragment, unknown>;
+export const CartAddItemDocument = new TypedDocumentString(`
+    mutation CartAddItem($cartId: ID!, $productId: ID!) {
+  orderAddItem(orderId: $cartId, productId: $productId) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CartAddItemMutation,
+  CartAddItemMutationVariables
+>;
+export const CartChangeItemQuantityDocument = new TypedDocumentString(`
+    mutation CartChangeItemQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {
+  orderChangeItemQuantity(
+    orderId: $cartId
+    productId: $productId
+    quantity: $quantity
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CartChangeItemQuantityMutation,
+  CartChangeItemQuantityMutationVariables
+>;
+export const CartCreateDocument = new TypedDocumentString(`
+    mutation CartCreate {
+  orderCreate {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CartCreateMutation,
+  CartCreateMutationVariables
+>;
+export const CartRemoveItemDocument = new TypedDocumentString(`
+    mutation CartRemoveItem($cartId: ID!, $productId: ID!) {
+  orderRemoveItem(orderId: $cartId, productId: $productId) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<
+  CartRemoveItemMutation,
+  CartRemoveItemMutationVariables
+>;
+export const CartGetByIdDocument = new TypedDocumentString(`
+    query CartGetById($id: ID!) {
+  order(id: $id, status: CREATED) {
+    ...Cart
+  }
+}
+    fragment Cart on Order {
+  id
+  items {
+    ...CartItem
+  }
+}
+fragment CartItem on OrderItem {
+  id
+  quantity
+  product {
+    ...ProductListItem
+  }
+}
+fragment Image on Image {
+  url
+  alt
+  width
+  height
+}
+fragment ProductListItem on Product {
+  id
+  slug
+  name
+  price
+  images {
+    ...Image
+  }
+}`) as unknown as TypedDocumentString<
+  CartGetByIdQuery,
+  CartGetByIdQueryVariables
+>;
 export const CategoryGetBySlugDocument = new TypedDocumentString(`
     query CategoryGetBySlug($slug: String!, $productsFirst: Int, $productsSkip: Int) {
   category(slug: $slug) {
@@ -344,6 +622,7 @@ fragment ProductList on ProductList {
   }
 }
 fragment ProductListItem on Product {
+  id
   slug
   name
   price
@@ -379,6 +658,7 @@ fragment ProductList on ProductList {
   }
 }
 fragment ProductListItem on Product {
+  id
   slug
   name
   price
@@ -402,6 +682,7 @@ export const ProductGetBySlugDocument = new TypedDocumentString(`
   height
 }
 fragment Product on Product {
+  id
   slug
   name
   description
@@ -434,6 +715,7 @@ fragment ProductList on ProductList {
   }
 }
 fragment ProductListItem on Product {
+  id
   slug
   name
   price

@@ -75,6 +75,46 @@ export type ListMeta = {
   total: Scalars['Int']['output'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  orderAddItem: Order;
+  orderChangeItemQuantity: Order;
+  orderCreate: Order;
+  orderRemoveItem: Order;
+};
+
+export type MutationorderAddItemArgs = {
+  orderId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+};
+
+export type MutationorderChangeItemQuantityArgs = {
+  orderId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+};
+
+export type MutationorderRemoveItemArgs = {
+  orderId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+};
+
+export type Order = {
+  __typename?: 'Order';
+  id: Scalars['ID']['output'];
+  items: Array<OrderItem>;
+  status: OrderStatus;
+};
+
+export type OrderItem = {
+  __typename?: 'OrderItem';
+  id: Scalars['ID']['output'];
+  product: Product;
+  quantity: Scalars['Int']['output'];
+};
+
+export type OrderStatus = 'CANCELLED' | 'CREATED' | 'FULFILLED' | 'PAID';
+
 export type Product = {
   __typename?: 'Product';
   description: Scalars['String']['output'];
@@ -95,6 +135,7 @@ export type Query = {
   __typename?: 'Query';
   category?: Maybe<Category>;
   collection?: Maybe<Collection>;
+  order?: Maybe<Order>;
   product?: Maybe<Product>;
   products: ProductList;
 };
@@ -105,6 +146,11 @@ export type QuerycategoryArgs = {
 
 export type QuerycollectionArgs = {
   slug: Scalars['String']['input'];
+};
+
+export type QueryorderArgs = {
+  id: Scalars['ID']['input'];
+  status?: InputMaybe<OrderStatus>;
 };
 
 export type QueryproductArgs = {
@@ -231,6 +277,10 @@ export type ResolversTypes = {
   Collection: ResolverTypeWrapper<Collection>;
   Image: ResolverTypeWrapper<Image>;
   ListMeta: ResolverTypeWrapper<ListMeta>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Order: ResolverTypeWrapper<Order>;
+  OrderItem: ResolverTypeWrapper<OrderItem>;
+  OrderStatus: OrderStatus;
   Product: ResolverTypeWrapper<Product>;
   ProductList: ResolverTypeWrapper<ProductList>;
   Query: ResolverTypeWrapper<{}>;
@@ -246,6 +296,9 @@ export type ResolversParentTypes = {
   Collection: Collection;
   Image: Image;
   ListMeta: ListMeta;
+  Mutation: {};
+  Order: Order;
+  OrderItem: OrderItem;
   Product: Product;
   ProductList: ProductList;
   Query: {};
@@ -311,6 +364,57 @@ export type ListMetaResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MutationResolvers<
+  ContextType = ApolloContext,
+  ParentType extends
+    ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
+> = {
+  orderAddItem?: Resolver<
+    ResolversTypes['Order'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationorderAddItemArgs, 'orderId' | 'productId'>
+  >;
+  orderChangeItemQuantity?: Resolver<
+    ResolversTypes['Order'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationorderChangeItemQuantityArgs,
+      'orderId' | 'productId' | 'quantity'
+    >
+  >;
+  orderCreate?: Resolver<ResolversTypes['Order'], ParentType, ContextType>;
+  orderRemoveItem?: Resolver<
+    ResolversTypes['Order'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationorderRemoveItemArgs, 'orderId' | 'productId'>
+  >;
+};
+
+export type OrderResolvers<
+  ContextType = ApolloContext,
+  ParentType extends
+    ResolversParentTypes['Order'] = ResolversParentTypes['Order'],
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  items?: Resolver<Array<ResolversTypes['OrderItem']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['OrderStatus'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderItemResolvers<
+  ContextType = ApolloContext,
+  ParentType extends
+    ResolversParentTypes['OrderItem'] = ResolversParentTypes['OrderItem'],
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  product?: Resolver<ResolversTypes['Product'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ProductResolvers<
   ContextType = ApolloContext,
   ParentType extends
@@ -352,6 +456,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QuerycollectionArgs, 'slug'>
   >;
+  order?: Resolver<
+    Maybe<ResolversTypes['Order']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryorderArgs, 'id'>
+  >;
   product?: Resolver<
     Maybe<ResolversTypes['Product']>,
     ParentType,
@@ -371,6 +481,9 @@ export type Resolvers<ContextType = ApolloContext> = {
   Collection?: CollectionResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   ListMeta?: ListMetaResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  Order?: OrderResolvers<ContextType>;
+  OrderItem?: OrderItemResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductList?: ProductListResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

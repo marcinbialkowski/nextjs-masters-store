@@ -1,13 +1,18 @@
 import clsx from 'clsx';
-import NextImage from 'next/image';
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { type ImageFragment } from '@/graphql/client';
 
 interface ProductImageProps {
   className?: string;
   image: ImageFragment;
+  priority?: NextImageProps['priority'];
 }
 
-export const ProductImage = ({ className, image }: ProductImageProps) => (
+export const ProductImage = ({
+  className,
+  image,
+  priority,
+}: ProductImageProps) => (
   <NextImage
     alt={image.alt}
     src={image.url}
@@ -15,6 +20,7 @@ export const ProductImage = ({ className, image }: ProductImageProps) => (
       className,
       'aspect-square w-full object-cover object-center',
     )}
+    priority={priority}
     width={image.width}
     height={image.height}
   />
