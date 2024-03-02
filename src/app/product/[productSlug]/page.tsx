@@ -22,7 +22,7 @@ export const generateMetadata = async ({
     return {};
   }
 
-  const { description, name, images } = product;
+  const { description, name } = product;
   const title = `${name} - NextStore`;
 
   return {
@@ -31,7 +31,6 @@ export const generateMetadata = async ({
     openGraph: {
       title,
       description,
-      images: images.slice(0, 1),
     },
   };
 };
