@@ -1,6 +1,12 @@
 extend type Query {
   product(slug: String!): Product
-  products(first: Int, skip: Int, search: String): ProductList!
+  products(
+    first: Int
+    skip: Int
+    search: String
+    sortBy: SortBy
+    sortDirection: SortDirection
+  ): ProductList!
 }
 
 type Product {
@@ -17,4 +23,13 @@ type Product {
 type ProductList {
   data: [Product!]!
   meta: ListMeta!
+}
+
+enum SortBy {
+  PRICE
+}
+
+enum SortDirection {
+  ASC
+  DESC
 }

@@ -4,7 +4,7 @@ import { MainBanner } from '@/components/atoms/main-banner';
 import { ProductList } from '@/components/organisms/product-list';
 import { Pagination } from '@/components/molecules/pagination';
 import { getProducts } from '@/services/products';
-import { parsePageParam } from '@/utils/parse-page-param';
+import { parsePageParam } from '@/utils/parse-products-params';
 
 interface SearchPageProps {
   params: { page: string };

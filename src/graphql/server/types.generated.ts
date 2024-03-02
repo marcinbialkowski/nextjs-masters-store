@@ -174,6 +174,8 @@ export type QueryproductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  sortBy?: InputMaybe<SortBy>;
+  sortDirection?: InputMaybe<SortDirection>;
 };
 
 export type QueryreviewsArgs = {
@@ -188,6 +190,10 @@ export type Review = {
   rating: Scalars['Int']['output'];
   title: Scalars['String']['output'];
 };
+
+export type SortBy = 'PRICE';
+
+export type SortDirection = 'ASC' | 'DESC';
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -312,6 +318,8 @@ export type ResolversTypes = {
   ProductList: ResolverTypeWrapper<ProductList>;
   Query: ResolverTypeWrapper<{}>;
   Review: ResolverTypeWrapper<Review>;
+  SortBy: SortBy;
+  SortDirection: SortDirection;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 

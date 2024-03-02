@@ -8,6 +8,8 @@ export const products: NonNullable<QueryResolvers['products']> = async (
   const take = arg.first ?? 10;
   const skip = arg.skip ?? 0;
   const search = arg.search;
+  const sortBy = arg.sortBy?.toLowerCase();
+  const sortDirection = arg.sortDirection?.toLowerCase() ?? 'asc';
 
   const where = search
     ? ({ name: { contains: search, mode: 'insensitive' } } as const)
@@ -18,6 +20,7 @@ export const products: NonNullable<QueryResolvers['products']> = async (
       where,
       take,
       skip,
+      ...(sortBy ? { orderBy: { [sortBy]: sortDirection } } : {}),
     }),
     ctx.prisma.product.count({ where }),
   ]);

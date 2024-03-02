@@ -21,6 +21,9 @@ export const getProducts = cache(
     const result = await executeGraphql(ProductsGetListDocument, {
       ...toProductsPaginationVariables(options),
       ...(options.search ? { search: options.search } : {}),
+      ...(options.sortBy
+        ? { sortBy: options.sortBy, sortDirection: options.sortDirection }
+        : {}),
     });
 
     return toProductsPaginatedResult(result.products, {

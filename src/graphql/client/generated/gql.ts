@@ -44,7 +44,7 @@ const documents = {
     types.CollectionGetBySlugDocument,
   'query ProductGetBySlug($slug: String!) {\n  product(slug: $slug) {\n    ...Product\n  }\n}':
     types.ProductGetBySlugDocument,
-  'query ProductsGetList($first: Int, $skip: Int, $search: String) {\n  products(first: $first, skip: $skip, search: $search) {\n    ...ProductList\n  }\n}':
+  'query ProductsGetList($first: Int, $skip: Int, $search: String, $sortBy: SortBy, $sortDirection: SortDirection) {\n  products(\n    first: $first\n    skip: $skip\n    search: $search\n    sortBy: $sortBy\n    sortDirection: $sortDirection\n  ) {\n    ...ProductList\n  }\n}':
     types.ProductsGetListDocument,
   'query ReviewsGetByProductId($productId: ID!) {\n  reviews(productId: $productId) {\n    ...Review\n  }\n}':
     types.ReviewsGetByProductIdDocument,
@@ -150,7 +150,7 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'query ProductsGetList($first: Int, $skip: Int, $search: String) {\n  products(first: $first, skip: $skip, search: $search) {\n    ...ProductList\n  }\n}',
+  source: 'query ProductsGetList($first: Int, $skip: Int, $search: String, $sortBy: SortBy, $sortDirection: SortDirection) {\n  products(\n    first: $first\n    skip: $skip\n    search: $search\n    sortBy: $sortBy\n    sortDirection: $sortDirection\n  ) {\n    ...ProductList\n  }\n}',
 ): typeof import('./graphql').ProductsGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

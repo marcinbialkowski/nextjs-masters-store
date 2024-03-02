@@ -2,12 +2,20 @@ import { notFound } from 'next/navigation';
 import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
 import { ProductList } from '@/components/organisms/product-list';
-import { getProducts } from '@/services/products';
+import { ProductsSort } from '@/components/molecules/products-sort';
 import { Pagination } from '@/components/molecules/pagination';
-import { parsePageParam } from '@/utils/parse-page-param';
+import { getProducts } from '@/services/products';
+import {
+  parsePageParam,
+  parseSearchParams,
+} from '@/utils/parse-products-params';
 
 interface ProductsPageProps {
   params: { page: string };
+  searchParams?: {
+    sortBy?: string;
+    sortDirection?: string;
+  };
 }
 
 const pageSize = 4;
@@ -19,12 +27,15 @@ export const generateStaticParams = async () => {
   }));
 };
 
-const ProductsPage = async ({ params }: ProductsPageProps) => {
+const ProductsPage = async ({ params, searchParams }: ProductsPageProps) => {
   const page = parsePageParam(params.page);
+  const { sortBy, sortDirection } = parseSearchParams(searchParams ?? {});
 
   const { products, pagesCount } = await getProducts({
     page,
     pageSize,
+    sortBy,
+    sortDirection,
   });
 
   if (products.length === 0 && page > 1) {
@@ -33,8 +44,9 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
 
   return (
     <>
-      <MainBanner>
+      <MainBanner className="flex items-center justify-between">
         <PageTitle>All products</PageTitle>
+        <ProductsSort defaultValue={`${sortBy}-${sortDirection}`} />
       </MainBanner>
       <div className="container pt-14">
         <ProductList products={products} />

@@ -161,6 +161,8 @@ export type QueryProductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  sortBy?: InputMaybe<SortBy>;
+  sortDirection?: InputMaybe<SortDirection>;
 };
 
 export type QueryReviewsArgs = {
@@ -174,6 +176,10 @@ export type Review = {
   rating: Scalars['Int']['output'];
   title: Scalars['String']['output'];
 };
+
+export type SortBy = 'PRICE';
+
+export type SortDirection = 'ASC' | 'DESC';
 
 export type CartFragment = {
   id: string;
@@ -391,6 +397,8 @@ export type ProductsGetListQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
+  sortBy?: InputMaybe<SortBy>;
+  sortDirection?: InputMaybe<SortDirection>;
 }>;
 
 export type ProductsGetListQuery = {
@@ -786,8 +794,14 @@ fragment Product on Product {
   ProductGetBySlugQueryVariables
 >;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList($first: Int, $skip: Int, $search: String) {
-  products(first: $first, skip: $skip, search: $search) {
+    query ProductsGetList($first: Int, $skip: Int, $search: String, $sortBy: SortBy, $sortDirection: SortDirection) {
+  products(
+    first: $first
+    skip: $skip
+    search: $search
+    sortBy: $sortBy
+    sortDirection: $sortDirection
+  ) {
     ...ProductList
   }
 }

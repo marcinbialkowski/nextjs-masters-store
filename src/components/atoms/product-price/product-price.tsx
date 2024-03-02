@@ -8,6 +8,9 @@ interface ProductPriceProps {
 
 export const ProductPrice = ({ className, price }: ProductPriceProps) => (
   <p className={className}>
-    <span className="sr-only">Price:</span> {formatMoney(price)}
+    <span className="sr-only" data-testid="product-price">
+      Price:
+    </span>{' '}
+    {formatMoney(price)}
   </p>
 );
