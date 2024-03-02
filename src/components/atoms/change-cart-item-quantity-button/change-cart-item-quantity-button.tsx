@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { type ButtonHTMLAttributes } from 'react';
+import { Button } from '@/components/atoms/button';
 
 type ChangeCartItemQuantityButtonProps =
   ButtonHTMLAttributes<HTMLButtonElement>;
@@ -8,12 +9,9 @@ export const ChangeCartItemQuantityButton = ({
   className,
   ...props
 }: ChangeCartItemQuantityButtonProps) => (
-  <button
+  <Button
     {...props}
-    className={clsx(
-      className,
-      'h-11 w-11 rounded border border-gray-300 disabled:cursor-not-allowed [&:not(:disabled)]:hover:bg-gray-100 [&:not(:disabled)]:active:bg-gray-200',
-    )}
+    className={clsx(className, 'h-11 w-11 font-bold')}
     type="submit"
   />
 );

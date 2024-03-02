@@ -1,5 +1,6 @@
 import { type TypedDocumentString } from '../generated/graphql';
 import { parseResponse } from './parse-response';
+import { setPrototypes } from './set-prototypes';
 import { apolloServer, context } from '@/graphql/server';
 
 export const executeGraphql = async <
@@ -14,4 +15,5 @@ export const executeGraphql = async <
       { query: query.toString(), variables },
       { contextValue: context },
     )
-    .then(parseResponse);
+    .then(parseResponse)
+    .then(setPrototypes);

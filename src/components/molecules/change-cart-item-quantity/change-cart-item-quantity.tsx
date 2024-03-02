@@ -35,7 +35,10 @@ export const ChangeCartItemQuantity = ({
       >
         -
       </ChangeCartItemQuantityButton>
-      <span className="font-bold" data-testid="quantity">
+      <span
+        className="min-w-[1ch] text-center font-bold"
+        data-testid="quantity"
+      >
         {optimisticQuantity}
       </span>
       <ChangeCartItemQuantityButton

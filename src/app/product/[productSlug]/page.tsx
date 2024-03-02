@@ -1,9 +1,12 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import { ProductImage } from '@/components/atoms/product-image';
 import { ProductPrice } from '@/components/atoms/product-price';
 import { AddToCart } from '@/components/molecules/add-to-cart';
-import { RecommendedProductList } from '@/components/organisms/recommended-product-list';
+import { Rating } from '@/components/molecules/rating';
+import { ProductReviewsSection } from '@/components/organisms/product-reviews-section';
+import { RecommendedProductsSection } from '@/components/organisms/recommended-products-section';
 import { getProduct } from '@/services/products';
 
 interface ProductPageProps {
@@ -52,15 +55,23 @@ const ProductPage = async ({ params }: ProductPageProps) => {
         )}
       </div>
       <div>
-        <h1 className="mb-4 text-4xl">{product.name}</h1>
-        <p className="mb-6 text-base text-gray-600">{product.description}</p>
+        <h1 className="text-4xl">{product.name}</h1>
+        <Rating className="mt-1" rating={product.rating} />
+        <p className="mb-6 mt-4 text-base text-gray-600">
+          {product.description}
+        </p>
         <ProductPrice className="mb-6 text-2xl" price={product.price} />
         <AddToCart productId={product.id} />
       </div>
-      <section className="col-span-2 mt-10" data-testid="related-products">
-        <h2 className="mb-5 text-xl font-bold">Similar products</h2>
-        <RecommendedProductList />
-      </section>
+      <Suspense>
+        <RecommendedProductsSection className="col-span-2 mt-10" />
+      </Suspense>
+      <Suspense>
+        <ProductReviewsSection
+          className="col-span-2 mt-10"
+          productId={product.id}
+        />
+      </Suspense>
     </div>
   );
 };

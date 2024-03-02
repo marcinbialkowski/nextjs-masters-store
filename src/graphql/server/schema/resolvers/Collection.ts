@@ -17,7 +17,13 @@ export const Collection: CollectionResolvers = {
     ]);
 
     return {
-      data: data?.map((product) => ({ ...product, images: [] })) ?? [],
+      data:
+        data?.map((product) => ({
+          ...product,
+          images: [],
+          reviews: [],
+          rating: 0,
+        })) ?? [],
       meta: {
         count: data?.length ?? 0,
         total,

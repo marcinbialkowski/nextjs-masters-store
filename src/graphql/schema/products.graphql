@@ -9,7 +9,9 @@ type Product {
   name: String!
   description: String!
   price: Int!
+  rating: Float!
   images: [Image!]!
+  reviews: [Review!]!
 }
 
 type ProductList {

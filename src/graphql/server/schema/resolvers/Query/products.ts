@@ -23,7 +23,12 @@ export const products: NonNullable<QueryResolvers['products']> = async (
   ]);
 
   return {
-    data: data.map((product) => ({ ...product, images: [] })),
+    data: data.map((product) => ({
+      ...product,
+      images: [],
+      reviews: [],
+      rating: 0,
+    })),
     meta: {
       count: data.length,
       total,

@@ -4,6 +4,7 @@ fragment Product on Product {
   name
   description
   price
+  rating
   images {
     ...Image
   }

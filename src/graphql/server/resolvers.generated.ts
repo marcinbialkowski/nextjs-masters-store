@@ -8,6 +8,7 @@ import { orderAddItem as Mutation_orderAddItem } from './schema/resolvers/Mutati
 import { orderChangeItemQuantity as Mutation_orderChangeItemQuantity } from './schema/resolvers/Mutation/orderChangeItemQuantity';
 import { orderCreate as Mutation_orderCreate } from './schema/resolvers/Mutation/orderCreate';
 import { orderRemoveItem as Mutation_orderRemoveItem } from './schema/resolvers/Mutation/orderRemoveItem';
+import { reviewCreate as Mutation_reviewCreate } from './schema/resolvers/Mutation/reviewCreate';
 import { Order } from './schema/resolvers/Order';
 import { OrderItem } from './schema/resolvers/OrderItem';
 import { Product } from './schema/resolvers/Product';
@@ -17,6 +18,8 @@ import { collection as Query_collection } from './schema/resolvers/Query/collect
 import { order as Query_order } from './schema/resolvers/Query/order';
 import { product as Query_product } from './schema/resolvers/Query/product';
 import { products as Query_products } from './schema/resolvers/Query/products';
+import { reviews as Query_reviews } from './schema/resolvers/Query/reviews';
+import { Review } from './schema/resolvers/Review';
 export const resolvers: Resolvers = {
   Query: {
     category: Query_category,
@@ -24,12 +27,14 @@ export const resolvers: Resolvers = {
     order: Query_order,
     product: Query_product,
     products: Query_products,
+    reviews: Query_reviews,
   },
   Mutation: {
     orderAddItem: Mutation_orderAddItem,
     orderChangeItemQuantity: Mutation_orderChangeItemQuantity,
     orderCreate: Mutation_orderCreate,
     orderRemoveItem: Mutation_orderRemoveItem,
+    reviewCreate: Mutation_reviewCreate,
   },
 
   Category: Category,
@@ -40,4 +45,5 @@ export const resolvers: Resolvers = {
   OrderItem: OrderItem,
   Product: Product,
   ProductList: ProductList,
+  Review: Review,
 };

@@ -44,4 +44,5 @@ export const getProduct = cache(
       (result) => result.product ?? null,
     ),
   ['get-product'],
+  { tags: ['products'] },
 );

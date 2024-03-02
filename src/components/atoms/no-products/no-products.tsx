@@ -1,5 +1,7 @@
+import { EmptyResultMessage } from '@/components/atoms/empty-result-message';
+
 export const NoProducts = () => (
-  <p className="text-balance py-20 text-center text-base">
+  <EmptyResultMessage>
     We don&apos;t have products you&apos;re looking for at the moment
-  </p>
+  </EmptyResultMessage>
 );

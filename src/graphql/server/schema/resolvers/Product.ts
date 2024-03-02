@@ -6,4 +6,9 @@ export const Product: ProductResolvers = {
       .findUnique({ where: { id: parent.id } })
       .images()
       .then((images) => images ?? []),
+  reviews: (parent, _arg, ctx) =>
+    ctx.prisma.product
+      .findUnique({ where: { id: parent.id } })
+      .reviews({ orderBy: { createdAt: 'desc' } })
+      .then((reviews) => reviews ?? []),
 };

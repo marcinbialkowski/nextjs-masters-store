@@ -1,19 +1,20 @@
 'use client';
 
 import { useFormStatus } from 'react-dom';
-import { PrimaryButton } from '@/components/atoms/primary-button';
+import { Button } from '@/components/atoms/button';
 
 export const AddToCartButton = () => {
   const status = useFormStatus();
 
   return (
-    <PrimaryButton
+    <Button
       className="w-full"
       data-testid="add-to-cart-button"
       disabled={status.pending}
       type="submit"
+      variant="primary"
     >
       Add to cart
-    </PrimaryButton>
+    </Button>
   );
 };

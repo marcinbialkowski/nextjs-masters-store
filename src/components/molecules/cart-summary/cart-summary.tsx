@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { type CartFragment } from '@/graphql/client';
-import { PrimaryButton } from '@/components/atoms/primary-button';
+import { Button } from '@/components/atoms/button';
 import { formatMoney } from '@/utils/format-money';
 import { getCartTotal } from '@/utils/get-cart-total';
 
@@ -16,6 +16,6 @@ export const CartSummary = ({ cart, className }: CartSummaryProps) => (
       <span>Total:</span>
       <span>{formatMoney(getCartTotal(cart))}</span>
     </span>
-    <PrimaryButton>Checkout</PrimaryButton>
+    <Button variant="primary">Checkout</Button>
   </section>
 );

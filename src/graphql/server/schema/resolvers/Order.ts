@@ -5,8 +5,19 @@ export const Order: OrderResolvers = {
     ctx.prisma.order
       .findUnique({ where: { id: parent.id } })
       .items({
-        include: { product: { include: { images: true } } },
+        include: { product: true },
         orderBy: { createdAt: 'asc' },
       })
-      .then((items) => items ?? []),
+      .then(
+        (items) =>
+          items?.map((item) => ({
+            ...item,
+            product: {
+              ...item.product,
+              images: [],
+              reviews: [],
+              rating: 0,
+            },
+          })) ?? [],
+      ),
 };
