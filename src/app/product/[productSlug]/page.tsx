@@ -43,7 +43,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   }
 
   return (
-    <div className="container grid grid-cols-1 gap-14 pt-14 sm:gap-20 md:grid-cols-2 xl:gap-24">
+    <div className="container grid grid-cols-1 gap-14 pt-14 lg:grid-cols-2 xl:gap-24">
       <div className="min-w-0">
         {product.images[0] && (
           <ProductImage
@@ -63,11 +63,11 @@ const ProductPage = async ({ params }: ProductPageProps) => {
         <AddToCart productId={product.id} />
       </div>
       <Suspense>
-        <RecommendedProductsSection className="col-span-2 mt-10" />
+        <RecommendedProductsSection className="mt-10 lg:col-span-2" />
       </Suspense>
       <Suspense>
         <ProductReviewsSection
-          className="col-span-2 mt-10"
+          className="mt-10 lg:col-span-2"
           productId={product.id}
         />
       </Suspense>
