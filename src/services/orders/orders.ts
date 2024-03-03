@@ -1,4 +1,3 @@
-import { revalidateTag, unstable_cache as cache } from 'next/cache';
 import { getCartIdCookie, setCartIdCookie } from './orders.utils';
 import {
   CartAddItemDocument,
@@ -9,17 +8,13 @@ import {
   executeGraphql,
 } from '@/graphql/client';
 
-const getCart = cache(
-  async (cartId: string) => {
-    const { order: cart } = await executeGraphql(CartGetByIdDocument, {
-      id: cartId,
-    });
+const getCart = async (cartId: string) => {
+  const { order: cart } = await executeGraphql(CartGetByIdDocument, {
+    id: cartId,
+  });
 
-    return cart ?? null;
-  },
-  ['get-cart'],
-  { tags: ['cart'] },
-);
+  return cart ?? null;
+};
 
 export const getCartFromCookie = async () => {
   const cartId = getCartIdCookie();
@@ -48,13 +43,12 @@ export const getOrCreateCart = async () => {
   return cart ?? (await createCart());
 };
 
-export const addProductToCart = async (cartId: string, productId: string) => {
+export const addProductToCart = async (productId: string) => {
+  const cart = await getOrCreateCart();
   await executeGraphql(CartAddItemDocument, {
-    cartId,
+    cartId: cart.id,
     productId,
   });
-
-  revalidateTag('cart');
 };
 
 export const removeCartItem = async (cartId: string, productId: string) => {
@@ -62,8 +56,6 @@ export const removeCartItem = async (cartId: string, productId: string) => {
     cartId,
     productId,
   });
-
-  revalidateTag('cart');
 };
 
 export const changeCartItemQuantity = async (
@@ -76,6 +68,4 @@ export const changeCartItemQuantity = async (
     productId,
     quantity,
   });
-
-  revalidateTag('cart');
 };

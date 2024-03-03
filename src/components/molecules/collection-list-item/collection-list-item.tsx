@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import {
   CollectionImage,
   type CollectionImageProps,
 } from '@/components/atoms/collection-image';
+import { Link } from '@/components/atoms/link';
 
 export interface CollectionListItemProps {
   collection: {

@@ -17,7 +17,8 @@ export const Rating = ({ className, rating, starSize }: RatingProps) => {
   return (
     <div className={clsx(className, 'flex items-center gap-2')}>
       <p className="italic text-gray-600">
-        {formatRating(rating)} / {MAX_REVIEW}
+        <span data-testid="product-rating">{formatRating(rating)}</span> /{' '}
+        {MAX_REVIEW}
       </p>
       <StarRating rating={Math.round(rating)} starSize={starSize} />
     </div>

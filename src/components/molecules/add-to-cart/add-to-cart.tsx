@@ -1,16 +1,19 @@
+import { revalidatePath } from 'next/cache';
 import { AddToCartButton } from '@/components/atoms/add-to-cart-button';
-import { addProductToCart, getOrCreateCart } from '@/services/orders';
+import { addProductToCart } from '@/services/orders';
+import { type ProductFragment } from '@/graphql/client';
 
 interface AddToCartProps {
   className?: string;
-  productId: string;
+  product: ProductFragment;
 }
 
-export const AddToCart = ({ className, productId }: AddToCartProps) => {
+export const AddToCart = ({ className, product }: AddToCartProps) => {
   const addToCartAction = async () => {
     'use server';
-    const cart = await getOrCreateCart();
-    await addProductToCart(cart.id, productId);
+    await addProductToCart(product.id);
+    revalidatePath('/cart');
+    revalidatePath(`/product/${product.slug}`);
   };
 
   return (

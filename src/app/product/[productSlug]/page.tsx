@@ -60,7 +60,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
           {product.description}
         </p>
         <ProductPrice className="mb-6 text-2xl" price={product.price} />
-        <AddToCart productId={product.id} />
+        <AddToCart product={product} />
       </div>
       <Suspense>
         <RecommendedProductsSection className="mt-10 lg:col-span-2" />

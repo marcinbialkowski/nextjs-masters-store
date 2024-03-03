@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { type CartFragment, type CartItemFragment } from '@/graphql/client';
+import { Link } from '@/components/atoms/link';
 import { ProductImage } from '@/components/atoms/product-image';
 import { ChangeCartItemQuantity } from '@/components/molecules/change-cart-item-quantity';
 import { RemoveCartItem } from '@/components/molecules/remove-cart-item';

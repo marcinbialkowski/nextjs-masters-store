@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { changeCartItemQuantity } from '@/services/orders';
 
 export const changeQuantity = async (
@@ -8,4 +9,5 @@ export const changeQuantity = async (
   quantity: number,
 ) => {
   await changeCartItemQuantity(cartId, productId, quantity);
+  revalidatePath('/cart');
 };

@@ -2,9 +2,9 @@
 
 import { type ReactNode } from 'react';
 import { type Route } from 'next';
-import Link from 'next/link';
 import clsx from 'clsx';
 import { useIsActive } from './use-is-active';
+import { Link } from '@/components/atoms/link';
 
 interface ActiveLinkProps<RouteInferType extends string> {
   activeClassName?: string;
