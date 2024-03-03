@@ -2,8 +2,8 @@ query ProductsGetList(
   $first: Int
   $skip: Int
   $search: String
-  $sortBy: SortBy
-  $sortDirection: SortDirection
+  $sortBy: ProductsSortBy
+  $sortDirection: ProductsSortDirection
 ) {
   products(
     first: $first

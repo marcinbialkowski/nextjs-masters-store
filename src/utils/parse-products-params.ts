@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { notFound } from 'next/navigation';
 
 const pageSchema = z.coerce.number().int().positive();
-const sortBySchema = z.enum(['PRICE']).default('PRICE');
-const sortDirectionSchema = z.enum(['ASC', 'DESC']).default('ASC');
+const sortBySchema = z.enum(['PRICE', 'RATING']).default('RATING');
+const sortDirectionSchema = z.enum(['ASC', 'DESC']).default('DESC');
 
 const searchParamsSchema = z.object({
   sortBy: sortBySchema,

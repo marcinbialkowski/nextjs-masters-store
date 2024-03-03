@@ -1,6 +1,6 @@
 import { unstable_cache as cache } from 'next/cache';
 import {
-  type ProductsPaginationOptions,
+  type ProductsListOptions,
   type GetProductsResult,
   type GetProductResult,
 } from './products.types';
@@ -13,11 +13,10 @@ import {
   ProductGetBySlugDocument,
   ProductsGetListDocument,
   type ProductFragment,
-  type ProductListItemFragment,
 } from '@/graphql/client';
 
 export const getProducts = cache(
-  async (options: ProductsPaginationOptions): Promise<GetProductsResult> => {
+  async (options: ProductsListOptions): Promise<GetProductsResult> => {
     const result = await executeGraphql(ProductsGetListDocument, {
       ...toProductsPaginationVariables(options),
       ...(options.search ? { search: options.search } : {}),
@@ -33,13 +32,6 @@ export const getProducts = cache(
   ['get-products'],
   { tags: ['products'] },
 );
-
-export const getRandomProducts = (
-  count: number,
-): Promise<ProductListItemFragment[]> =>
-  getProducts({ pageSize: count * 5 }).then(({ products }) =>
-    products.sort(() => 0.5 - Math.random()).slice(0, count),
-  );
 
 export const getProduct = cache(
   (slug: ProductFragment['slug']): Promise<GetProductResult> =>

@@ -1,3 +1,4 @@
+import qs from 'qs';
 import { notFound } from 'next/navigation';
 import { PageTitle } from '@/components/atoms/page-title';
 import { MainBanner } from '@/components/atoms/main-banner';
@@ -46,7 +47,7 @@ const ProductsPage = async ({ params, searchParams }: ProductsPageProps) => {
     <>
       <MainBanner className="flex items-center justify-between">
         <PageTitle>All products</PageTitle>
-        <ProductsSort defaultValue={`${sortBy}-${sortDirection}`} />
+        <ProductsSort value={`${sortBy}-${sortDirection}`} />
       </MainBanner>
       <div className="container pt-14">
         <ProductList products={products} />
@@ -54,7 +55,9 @@ const ProductsPage = async ({ params, searchParams }: ProductsPageProps) => {
           className="mt-14"
           currentPage={page}
           pagesCount={pagesCount}
-          pageToHref={(page) => `/products/${page}`}
+          pageToHref={(page) =>
+            `/products/${page}${qs.stringify(searchParams, { addQueryPrefix: true })}`
+          }
         />
       </div>
     </>

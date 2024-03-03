@@ -26,6 +26,6 @@ export const product: NonNullable<QueryResolvers['product']> = async (
     ...product,
     images: [],
     reviews: [],
-    rating: aggregations._avg.rating ?? 0,
+    rating: aggregations._avg.rating,
   };
 };

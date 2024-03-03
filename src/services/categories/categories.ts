@@ -5,13 +5,13 @@ import {
   executeGraphql,
 } from '@/graphql/client';
 import {
-  type ProductsPaginationOptions,
+  type ProductsListOptions,
   toProductsPaginatedResult,
   toProductsPaginationVariables,
 } from '@/services/products';
 
 export const getCategory = cache(
-  async (slug: Category['slug'], options: ProductsPaginationOptions) => {
+  async (slug: Category['slug'], options: ProductsListOptions) => {
     const productsVariables = toProductsPaginationVariables(options);
     const result = await executeGraphql(CategoryGetBySlugDocument, {
       slug,

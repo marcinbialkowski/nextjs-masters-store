@@ -4,8 +4,8 @@ extend type Query {
     first: Int
     skip: Int
     search: String
-    sortBy: SortBy
-    sortDirection: SortDirection
+    sortBy: ProductsSortBy
+    sortDirection: ProductsSortDirection
   ): ProductList!
 }
 
@@ -15,7 +15,7 @@ type Product {
   name: String!
   description: String!
   price: Int!
-  rating: Float!
+  rating: Float
   images: [Image!]!
   reviews: [Review!]!
 }
@@ -25,11 +25,12 @@ type ProductList {
   meta: ListMeta!
 }
 
-enum SortBy {
+enum ProductsSortBy {
   PRICE
+  RATING
 }
 
-enum SortDirection {
+enum ProductsSortDirection {
   ASC
   DESC
 }

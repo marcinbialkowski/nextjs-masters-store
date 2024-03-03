@@ -121,7 +121,7 @@ export type Product = {
   images: Array<Image>;
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
-  rating: Scalars['Float']['output'];
+  rating?: Maybe<Scalars['Float']['output']>;
   reviews: Array<Review>;
   slug: Scalars['String']['output'];
 };
@@ -130,6 +130,10 @@ export type ProductList = {
   data: Array<Product>;
   meta: ListMeta;
 };
+
+export type ProductsSortBy = 'PRICE' | 'RATING';
+
+export type ProductsSortDirection = 'ASC' | 'DESC';
 
 export type Query = {
   category?: Maybe<Category>;
@@ -161,8 +165,8 @@ export type QueryProductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
-  sortBy?: InputMaybe<SortBy>;
-  sortDirection?: InputMaybe<SortDirection>;
+  sortBy?: InputMaybe<ProductsSortBy>;
+  sortDirection?: InputMaybe<ProductsSortDirection>;
 };
 
 export type QueryReviewsArgs = {
@@ -177,10 +181,6 @@ export type Review = {
   title: Scalars['String']['output'];
 };
 
-export type SortBy = 'PRICE';
-
-export type SortDirection = 'ASC' | 'DESC';
-
 export type CartFragment = {
   id: string;
   items: Array<{
@@ -191,6 +191,7 @@ export type CartFragment = {
       slug: string;
       name: string;
       price: number;
+      rating?: number | null;
       images: Array<{
         url: string;
         alt: string;
@@ -209,6 +210,7 @@ export type CartItemFragment = {
     slug: string;
     name: string;
     price: number;
+    rating?: number | null;
     images: Array<{ url: string; alt: string; width: number; height: number }>;
   };
 };
@@ -226,7 +228,7 @@ export type ProductFragment = {
   name: string;
   description: string;
   price: number;
-  rating: number;
+  rating?: number | null;
   images: Array<{ url: string; alt: string; width: number; height: number }>;
 };
 
@@ -236,6 +238,7 @@ export type ProductListFragment = {
     slug: string;
     name: string;
     price: number;
+    rating?: number | null;
     images: Array<{ url: string; alt: string; width: number; height: number }>;
   }>;
   meta: { total: number };
@@ -246,6 +249,7 @@ export type ProductListItemFragment = {
   slug: string;
   name: string;
   price: number;
+  rating?: number | null;
   images: Array<{ url: string; alt: string; width: number; height: number }>;
 };
 
@@ -311,6 +315,7 @@ export type CartGetByIdQuery = {
         slug: string;
         name: string;
         price: number;
+        rating?: number | null;
         images: Array<{
           url: string;
           alt: string;
@@ -337,6 +342,7 @@ export type CategoryGetBySlugQuery = {
         slug: string;
         name: string;
         price: number;
+        rating?: number | null;
         images: Array<{
           url: string;
           alt: string;
@@ -365,6 +371,7 @@ export type CollectionGetBySlugQuery = {
         slug: string;
         name: string;
         price: number;
+        rating?: number | null;
         images: Array<{
           url: string;
           alt: string;
@@ -388,7 +395,7 @@ export type ProductGetBySlugQuery = {
     name: string;
     description: string;
     price: number;
-    rating: number;
+    rating?: number | null;
     images: Array<{ url: string; alt: string; width: number; height: number }>;
   } | null;
 };
@@ -397,8 +404,8 @@ export type ProductsGetListQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
-  sortBy?: InputMaybe<SortBy>;
-  sortDirection?: InputMaybe<SortDirection>;
+  sortBy?: InputMaybe<ProductsSortBy>;
+  sortDirection?: InputMaybe<ProductsSortDirection>;
 }>;
 
 export type ProductsGetListQuery = {
@@ -408,6 +415,7 @@ export type ProductsGetListQuery = {
       slug: string;
       name: string;
       price: number;
+      rating?: number | null;
       images: Array<{
         url: string;
         alt: string;
@@ -468,6 +476,7 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -500,6 +509,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -532,6 +542,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -580,6 +591,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -689,6 +701,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -724,6 +737,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -760,6 +774,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }
@@ -794,7 +809,7 @@ fragment Product on Product {
   ProductGetBySlugQueryVariables
 >;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList($first: Int, $skip: Int, $search: String, $sortBy: SortBy, $sortDirection: SortDirection) {
+    query ProductsGetList($first: Int, $skip: Int, $search: String, $sortBy: ProductsSortBy, $sortDirection: ProductsSortDirection) {
   products(
     first: $first
     skip: $skip
@@ -824,6 +839,7 @@ fragment ProductListItem on Product {
   slug
   name
   price
+  rating
   images {
     ...Image
   }

@@ -132,7 +132,7 @@ export type Product = {
   images: Array<Image>;
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
-  rating: Scalars['Float']['output'];
+  rating?: Maybe<Scalars['Float']['output']>;
   reviews: Array<Review>;
   slug: Scalars['String']['output'];
 };
@@ -142,6 +142,10 @@ export type ProductList = {
   data: Array<Product>;
   meta: ListMeta;
 };
+
+export type ProductsSortBy = 'PRICE' | 'RATING';
+
+export type ProductsSortDirection = 'ASC' | 'DESC';
 
 export type Query = {
   __typename?: 'Query';
@@ -174,8 +178,8 @@ export type QueryproductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
-  sortBy?: InputMaybe<SortBy>;
-  sortDirection?: InputMaybe<SortDirection>;
+  sortBy?: InputMaybe<ProductsSortBy>;
+  sortDirection?: InputMaybe<ProductsSortDirection>;
 };
 
 export type QueryreviewsArgs = {
@@ -190,10 +194,6 @@ export type Review = {
   rating: Scalars['Int']['output'];
   title: Scalars['String']['output'];
 };
-
-export type SortBy = 'PRICE';
-
-export type SortDirection = 'ASC' | 'DESC';
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -316,10 +316,10 @@ export type ResolversTypes = {
   Product: ResolverTypeWrapper<Product>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ProductList: ResolverTypeWrapper<ProductList>;
+  ProductsSortBy: ProductsSortBy;
+  ProductsSortDirection: ProductsSortDirection;
   Query: ResolverTypeWrapper<{}>;
   Review: ResolverTypeWrapper<Review>;
-  SortBy: SortBy;
-  SortDirection: SortDirection;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
@@ -472,7 +472,7 @@ export type ProductResolvers<
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   reviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

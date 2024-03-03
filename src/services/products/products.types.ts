@@ -1,16 +1,16 @@
 import {
   type ProductFragment,
   type ProductListItemFragment,
-  type SortBy,
-  type SortDirection,
+  type ProductsSortBy,
+  type ProductsSortDirection,
 } from '@/graphql/client';
 
-export interface ProductsPaginationOptions {
+export interface ProductsListOptions {
   page?: number;
   pageSize: number;
   search?: string;
-  sortBy?: SortBy;
-  sortDirection?: SortDirection;
+  sortBy?: ProductsSortBy;
+  sortDirection?: ProductsSortDirection;
 }
 
 export interface GetProductsResult {

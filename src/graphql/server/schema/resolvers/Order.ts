@@ -16,7 +16,6 @@ export const Order: OrderResolvers = {
               ...item.product,
               images: [],
               reviews: [],
-              rating: 0,
             },
           })) ?? [],
       ),

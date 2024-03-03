@@ -5,20 +5,21 @@ import { MAX_REVIEW } from '@/const';
 
 interface RatingProps {
   className?: string;
-  rating: number;
+  rating?: number | null;
+  starSize?: number;
 }
 
-export const Rating = ({ className, rating }: RatingProps) => {
+export const Rating = ({ className, rating, starSize }: RatingProps) => {
   if (!rating) {
     return null;
   }
 
   return (
-    <div className={clsx(className, 'flex items-center gap-3')}>
-      <p className="italic">
+    <div className={clsx(className, 'flex items-center gap-2')}>
+      <p className="italic text-gray-600">
         {formatRating(rating)} / {MAX_REVIEW}
       </p>
-      <StarRating rating={Math.round(rating)} />
+      <StarRating rating={Math.round(rating)} starSize={starSize} />
     </div>
   );
 };

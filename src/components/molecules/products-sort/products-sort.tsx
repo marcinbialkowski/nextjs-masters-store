@@ -4,10 +4,10 @@ import { type ChangeEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface ProductsSortProps {
-  defaultValue?: string;
+  value: string;
 }
 
-export const ProductsSort = ({ defaultValue }: ProductsSortProps) => {
+export const ProductsSort = ({ value }: ProductsSortProps) => {
   const router = useRouter();
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
@@ -21,13 +21,19 @@ export const ProductsSort = ({ defaultValue }: ProductsSortProps) => {
       <select
         className="min-w-48 cursor-pointer appearance-none rounded bg-gray-50 px-2 py-1 text-sm text-gray-800 ring-1 ring-inset ring-gray-300 focus:outline-0 focus:ring-2 focus:ring-green-700"
         onChange={handleChange}
-        defaultValue={defaultValue}
+        value={value}
       >
-        <option value="PRICE-ASC" data-testid="sort-by-price">
-          Price (Low to High)
+        <option value="RATING-DESC" data-testid="sort-by-rating">
+          Rating (High to Low)
+        </option>
+        <option value="RATING-ASC" data-testid="sort-by-rating">
+          Rating (Low to High)
         </option>
         <option value="PRICE-DESC" data-testid="sort-by-price">
           Price (High to Low)
+        </option>
+        <option value="PRICE-ASC" data-testid="sort-by-price">
+          Price (Low to High)
         </option>
       </select>
     </label>
