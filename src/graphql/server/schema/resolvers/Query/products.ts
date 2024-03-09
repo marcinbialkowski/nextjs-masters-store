@@ -9,6 +9,7 @@ export const products: NonNullable<QueryResolvers['products']> = async (
   getProductsList(ctx, {
     take: arg.first ?? undefined,
     skip: arg.skip ?? undefined,
+    ids: arg.ids ?? undefined,
     search: arg.search ?? undefined,
     sortBy: arg.sortBy ?? undefined,
     sortDirection: arg.sortDirection ?? undefined,

@@ -163,6 +163,7 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
   search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sortBy?: InputMaybe<ProductsSortBy>;
@@ -398,6 +399,29 @@ export type ProductGetBySlugQuery = {
     rating?: number | null;
     images: Array<{ url: string; alt: string; width: number; height: number }>;
   } | null;
+};
+
+export type ProductsGetByIdsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
+}>;
+
+export type ProductsGetByIdsQuery = {
+  products: {
+    data: Array<{
+      id: string;
+      slug: string;
+      name: string;
+      price: number;
+      rating?: number | null;
+      images: Array<{
+        url: string;
+        alt: string;
+        width: number;
+        height: number;
+      }>;
+    }>;
+    meta: { total: number };
+  };
 };
 
 export type ProductsGetListQueryVariables = Exact<{
@@ -807,6 +831,39 @@ fragment Product on Product {
 }`) as unknown as TypedDocumentString<
   ProductGetBySlugQuery,
   ProductGetBySlugQueryVariables
+>;
+export const ProductsGetByIdsDocument = new TypedDocumentString(`
+    query ProductsGetByIds($ids: [ID!]!) {
+  products(ids: $ids) {
+    ...ProductList
+  }
+}
+    fragment Image on Image {
+  url
+  alt
+  width
+  height
+}
+fragment ProductList on ProductList {
+  data {
+    ...ProductListItem
+  }
+  meta {
+    total
+  }
+}
+fragment ProductListItem on Product {
+  id
+  slug
+  name
+  price
+  rating
+  images {
+    ...Image
+  }
+}`) as unknown as TypedDocumentString<
+  ProductsGetByIdsQuery,
+  ProductsGetByIdsQueryVariables
 >;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int, $skip: Int, $search: String, $sortBy: ProductsSortBy, $sortDirection: ProductsSortDirection) {

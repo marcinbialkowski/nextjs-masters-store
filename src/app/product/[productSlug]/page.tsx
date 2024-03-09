@@ -6,7 +6,7 @@ import { ProductPrice } from '@/components/atoms/product-price';
 import { AddToCart } from '@/components/molecules/add-to-cart';
 import { Rating } from '@/components/molecules/rating';
 import { ProductReviewsSection } from '@/components/organisms/product-reviews-section';
-import { RecommendedProductsSection } from '@/components/organisms/recommended-products-section';
+import { RelatedProductsSection } from '@/components/organisms/related-products-section';
 import { getProduct } from '@/services/products';
 
 interface ProductPageProps {
@@ -63,7 +63,10 @@ const ProductPage = async ({ params }: ProductPageProps) => {
         <AddToCart product={product} />
       </div>
       <Suspense>
-        <RecommendedProductsSection className="mt-10 lg:col-span-2" />
+        <RelatedProductsSection
+          className="mt-10 lg:col-span-2"
+          productSlug={params.productSlug}
+        />
       </Suspense>
       <Suspense>
         <ProductReviewsSection

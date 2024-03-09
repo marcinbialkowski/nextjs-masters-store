@@ -1,0 +1,5 @@
+query ProductsGetByIds($ids: [ID!]!) {
+  products(ids: $ids) {
+    ...ProductList
+  }
+}

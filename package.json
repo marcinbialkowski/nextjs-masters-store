@@ -21,6 +21,7 @@
     "schema": "src/db/schema.prisma"
   },
   "dependencies": {
+    "@algolia/recommend": "^4.22.1",
     "@apollo/server": "^4.10.0",
     "@as-integrations/next": "^3.0.0",
     "@mdx-js/react": "^3.0.1",

@@ -176,6 +176,7 @@ export type QueryproductArgs = {
 
 export type QueryproductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
   search?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sortBy?: InputMaybe<ProductsSortBy>;

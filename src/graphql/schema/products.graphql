@@ -3,6 +3,7 @@ extend type Query {
   products(
     first: Int
     skip: Int
+    ids: [ID!]
     search: String
     sortBy: ProductsSortBy
     sortDirection: ProductsSortDirection

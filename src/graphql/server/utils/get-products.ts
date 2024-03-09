@@ -8,6 +8,7 @@ import { type ApolloContext } from '../types';
 export interface GetProductsOptions {
   take?: number;
   skip?: number;
+  ids?: Product['id'][];
   search?: string;
   sortBy?: ProductsSortBy;
   sortDirection?: ProductsSortDirection;
@@ -33,11 +34,19 @@ const sortDirectionToSql: Record<
 };
 
 const buildWhere = ({
+  ids,
   search,
   categoryId,
   collectionId,
-}: Pick<GetProductsOptions, 'search' | 'categoryId' | 'collectionId'>) => {
+}: Pick<
+  GetProductsOptions,
+  'ids' | 'search' | 'categoryId' | 'collectionId'
+>) => {
   const whereConditions: Prisma.Sql[] = [];
+
+  if (ids && ids.length > 0) {
+    whereConditions.push(Prisma.sql`p.id IN (${Prisma.join(ids, ', ')})`);
+  }
 
   if (search) {
     whereConditions.push(Prisma.sql`p.name ILIKE ${`%${search}%`}`);
@@ -69,6 +78,7 @@ export const getProducts = (
   {
     take = 10,
     skip = 0,
+    ids,
     search,
     sortBy = 'RATING',
     sortDirection = 'DESC',
@@ -86,7 +96,7 @@ export const getProducts = (
         "Product" p
       LEFT JOIN
         "Review" r ON p.id = r."productId"
-      ${buildWhere({ search, categoryId, collectionId })}
+      ${buildWhere({ ids, search, categoryId, collectionId })}
       GROUP BY
         p.id
       ORDER BY
