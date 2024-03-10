@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { type ButtonHTMLAttributes } from 'react';
 
-interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
 }
 
@@ -9,7 +9,7 @@ export const Button = ({
   className,
   variant = 'secondary',
   ...props
-}: PrimaryButtonProps) => {
+}: ButtonProps) => {
   const commonClassName =
     'rounded-md border tracking-wider disabled:cursor-not-allowed focus-visible:outline-offset-4 disabled:opacity-50';
   const variantClassName =
